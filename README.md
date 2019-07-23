@@ -9,7 +9,7 @@ The functionalities are:
 <li>Filter sidebar to filter clients based on tier, growth potential and Sales trend</li>
 <li>Popups with info for each client</li>
 <li>Draw polygon</li>
-<li>click polygon to see a Dialog box with the summary of the clients inside the polygon</li>
+<li>click polygon to see a Dialog box with the summary of the clients inside the drawn polygon</li>
 </ul>
 
-Made using Leafletjs in javascript
+Made using Leafletjs in javascript and turfjs for the client-side geoprocessing of getting the points inside drawn polygon
