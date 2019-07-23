@@ -108,7 +108,7 @@ dl {
     padding: 0 0 0.5em 0;
   }
 .circle {
-    border-radius: 50%;
+    border-radius: 0%;
     width: 20px;
     height: 20px;
     border: 1.9px solid black;
@@ -268,7 +268,7 @@ dl {
 		
 		//--------------------------------------------------
 		for(var row = 0; row < filtered.length; row++) {
-			if (filtered[row].lat>0){
+			if (filtered[row].lat > 0){
 					
 					if(filtered[row].tier != null){var index = filtered[row].tier.indexOf(" ");
 					var tier_no = filtered[row].tier.substr(index + 1);}else{var tier_no = "0"}
@@ -287,12 +287,14 @@ dl {
 					
 					clusters.addLayer(marker);
 					map.addLayer(clusters);
+					var trendCategory;
 					// icon
-					
+					if(filtered[row].trend === "Extreme Growth (50+)" || filtered[row].trend === "Major Growth (20 to 49)" || filtered[row].trend ===  "Moderate Growth (5 to 19)"){trendCategory = 'Growing';}
+					else if(filtered[row].trend === "Moderate Loss (-19 to -5)" || filtered[row].trend === "Major Loss (-49 to -20)" || filtered[row].trend === "Extreme Loss (-50+)"){trendCategory = 'Declining';}
 					var icon = L.divIcon({
 						className: "my-div-icon",
 						iconSize: [20, 20],
-						html: "<div class='circle "+filtered[row].sales_potential+" "+filtered[row].trend+"'><b>"+tier_no+"</b></div>"
+						html: "<div class='circle "+filtered[row].sales_potential+" "+trendCategory+"'><b>"+tier_no+"</b></div>"
 					});
 					
 					marker.setIcon(icon);
