@@ -31,10 +31,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
 	
+	<script src="leaflet-heat.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
+	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 </head>
 <body>
 
+
+
+
 <style>
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: rgba(255,255,255, 0.5);
+  
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
 
 
 h2{
@@ -74,30 +95,64 @@ dl {
     vertical-align: middle;
 
 }
-.circle.Low   {background-color: PeachPuff}
-.circle.Medium {background-color: LightSkyBlue}
-.circle.High    {background-color: MediumOrchid}
+.circle.High   {background-color: PeachPuff}
+.circle.Moderate {background-color: LightSkyBlue}
+.circle.Low    {background-color: MediumOrchid}
 
 .circle.Declining    {border-color: red}
 .circle.Growing    {border-color: limegreen}
 
 </style>
+<div class="sidenav">
+	<table><h2 class="filterTitle">MAH Tier</h2>	
+			<tr><td><input type="checkbox" name="tier" value="Tier 1" checked=checked />Tier 1</td></tr>
+			<tr><td><input type="checkbox" name="tier" value="Tier 2" checked=checked/>Tier 2</td></tr>
+			<tr><td><input type="checkbox" name="tier" value="Tier 3" checked=checked/>Tier 3</td></tr>		
+			<tr><td><input type="checkbox" name="tier" value="Tier 4" checked=checked/>Tier 4</td></tr>
+			<tr><td><input type="checkbox" name="tier" value="null" checked=checked/>No tier</td></tr>
+	</table><table>
+			<h2 class="filterTitle">Growth Potential</h2>	
+			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low</td></tr>
+			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate</td></tr>
+			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High</td></tr>
+			<tr><td><input type="checkbox" name="potential" value="null" checked=checked />No value</td></tr>
+	</table><table>
+			<h2 class="filterTitle">Sales Trend</h2>	
+			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="No Sales" checked=checked />No Sales</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</td></tr>
+			<tr><td><input type="checkbox" name="trend" value="null" checked=checked />No value</td></tr>
+				
+	</table>
+			
+	
+</div>
 
-<div id="map" style="width: 100vw; height: 100vh;"></div>
+<div id="map" style="width: 100vw; height: 100vh; z-index: 0;"></div>
 <script>
 
 
 
-	$.getJSON('https://api.sheety.co/d2c0166b-01d1-41c0-9318-bad3a5a1ebcf', function(json) {
+	$.getJSON('https://api.sheety.co/d1d52423-9f56-40da-bfcf-f1cd314dacbc', function(json) {
 		addPoints(json);
 	});
 	
 
 	
-	var map = L.map('map').setView([35, -99], 4);
+	var map = L.map('map', {zoomControl: false}).setView([35, -99], 4);
 	
-	var tonerLayer = new L.StamenTileLayer("toner");
-	map.addLayer(tonerLayer);
+	//var tonerLayer = new L.StamenTileLayer("watercolor");
+	//map.addLayer(tonerLayer);
+	
+	var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+	});
+	Esri_WorldStreetMap.addTo(map);
 	
 	
 	var pointGroupLayer;
@@ -107,31 +162,119 @@ dl {
 		pointGroupLayer.remove();
 	}
 	
-	pointGroupLayer = L.featureGroup().addTo(map);
-	for(var row = 0; row < data.length; row++) {
+	
+	var clusters = L.markerClusterGroup({ disableClusteringAtZoom: 15 });
+	pointGroupLayer = L.featureGroup();
+	
+	var clicks = 0; //click counter for filters
+	var heat;
+	drawPoints();
+	function drawPoints(){      //function called when a checkbox is clicked
 		
+		coordsHeat = []; //define an array to store coordinates
+		
+		if (clicks > 0){map.removeLayer(heat); clusters.clearLayers();}
+			clicks++;
 			
-			var marker = L.marker([data[row].lat, data[row].lon]).addTo(pointGroupLayer);
-			marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + data[row].client + "</dd><dt>Address </dt><dd>"+ data[row].address+  "</dd><dt>2017 Sales </dt><dd>" + data[row].sales_2017 + "</dd><dt>2018 Sales </dt><dd>" + data[row].sales_2018 +"</dd><dt>Sales Trend </dt><dd>" + data[row].trend + "</dd><dt>Tier </dt><dd>" + data[row].tier+ "</dd><dt>Sales Potential </dt><dd>" +  data[row].sales_potential + "</dd></dl>", 
-			{
-			maxWidth: 380,
-			maxHeight: 700
+		//map.removeLayer(pointGroupLayer)
+		//pointGroupLayer = L.featureGroup().addTo(map);
+		//filters---------------
+		tierfilter = [];
+		potentialfilter = [];
+		trendfilter = [];
+		
+		 //--------tier filter-----
+		$("input:checkbox[name='tier']:checked").each(function(){
+				//tierfilter=[];
+			if($(this).val() === "null"){tierfilter.push(null);}
+			else{
+			tierfilter.push($(this).val());}});
 			
-			}); 
-			// icon
-			
-			var icon = L.divIcon({
-				className: "my-div-icon",
-				iconSize: [20, 20],
-				html: "<div class='circle "+data[row].sales_potential+" "+data[row].trend+"'><b>"+data[row].tier+"</b></div>"
-			});
-			
-			marker.setIcon(icon);
+		function tierFilter(element) {
+			var valid = tierfilter;
+			return (valid.includes(element.tier));
+		}
+			//-----growth potential filter----
+		$("input:checkbox[name='potential']:checked").each(function(){ 
+			if($(this).val() === "null" || $(this).val() === "N/A"){potentialfilter.push(null);}
+			else{
+			potentialfilter.push($(this).val());}});
 				
-			}	 
+		function potentialFilter(element) {
+			var valid = potentialfilter;
+			return (valid.includes(element.sales_potential));
+		}
+			//-----sales trend filter----
+		$("input:checkbox[name='trend']:checked").each(function(){ 
+			if($(this).val() === "null" || $(this).val() === "N/A"){trendfilter.push(null);}
+			else{
+			trendfilter.push($(this).val());}});
+				
+		function trendFilter(element) {
+			var valid = trendfilter;
+			return (valid.includes(element.trend));
+		}
+		
+		var filtered = data.filter(tierFilter);
+		filtered = data.filter(potentialFilter);
+		filtered = data.filter(trendFilter);
+		
+		
+		
+		//--------------------------------------------------
+		for(var row = 0; row < filtered.length; row++) {
+			if (filtered[row].lat>0){
+					
+					if(filtered[row].tier != null){var index = filtered[row].tier.indexOf(" ");
+					var tier_no = filtered[row].tier.substr(index + 1);}else{var tier_no = "0"}
+					tier_no = parseInt(tier_no);
+					
+					
+					coordsHeat.push([filtered[row].lat, filtered[row].lon]);
+					var marker = L.marker([filtered[row].lat, filtered[row].lon]).addTo(pointGroupLayer);
+					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>" + filtered[row].sales_2017 + "</dd><dt>2018 Sales </dt><dd>" + filtered[row].sales_2018 +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" + filtered[row].tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential + "</dd></dl>", 
+					{
+					maxWidth: 380,
+					maxHeight: 700
+					
+					}); 
+					
+					
+					clusters.addLayer(marker);
+					map.addLayer(clusters);
+					// icon
+					
+					var icon = L.divIcon({
+						className: "my-div-icon",
+						iconSize: [20, 20],
+						html: "<div class='circle "+filtered[row].sales_potential+" "+filtered[row].trend+"'><b>"+tier_no+"</b></div>"
+					});
+					
+					marker.setIcon(icon);
+						
+					}	 
+					
+					
+				}
+				
+				if (coordsHeat.length > 0){heat = L.heatLayer(coordsHeat, {minOpacity: 0.4}).addTo(map);}
+				console.log(coordsHeat.length);
+				
+				
+					
+			
+			
+			
+			}
+		
+			
+			map.fitBounds(pointGroupLayer.getBounds());	
+			$('input[name="tier"]').click(drawPoints);
+			$('input[name="potential"]').click(drawPoints);
+			$('input[name="trend"]').click(drawPoints);
 			
 		
-		map.fitBounds(pointGroupLayer.getBounds());
+		
 		
 	
 	
