@@ -31,13 +31,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
 	
-	<script src="leaflet-heat.js"></script>
+	<script src="script/leaflet-heat.js"></script>
+	<link rel="stylesheet" href="script/Leaflet.Dialog.css"/>
+	<script src="script/Leaflet.Dialog.js"></script>
+	
+	
+	
+	<script src=https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.min.js></script>
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+	
 	
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
 	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 </head>
 <body>
 
@@ -59,7 +69,16 @@
   padding-top: 20px;
 }
 
+.summary > dt{
+	float: left;
+    clear: left;
+	
+    width: 160px;
+   
+    font-weight: bold;
+    color: black;
 
+}
 
 h2{
 	text-align:center;
@@ -171,7 +190,30 @@ dl {
 	
 	var clicks = 0; //click counter for filters
 	var heat;
+	var filtered = new Array();
+	var summaryPoints = new Array(); //array with the points within the drawn polygon
 	drawPoints();
+	var drawnItems = new L.FeatureGroup();
+	
+	//variables used in summary
+				var totTier1 = 0;
+				var totTier2 = 0;
+				var totTier3 = 0;
+				var totTier4 = 0;
+				var noTier = 0;
+				var totLow = 0;
+				var totMod = 0;
+				var totHigh = 0;
+				var noPotential = 0;
+				var sales2017 = 0;
+				var avg2017 = 0;
+				var sales2018 = 0;
+				var avg2018 = 0;
+				
+				//end variables in summary----------
+	
+	
+	var drawnAmount = 0;
 	function drawPoints(){      //function called when a checkbox is clicked
 		
 		coordsHeat = []; //define an array to store coordinates
@@ -218,7 +260,7 @@ dl {
 			return (valid.includes(element.trend));
 		}
 		
-		var filtered = data.filter(tierFilter);
+		filtered = data.filter(tierFilter);
 		filtered = filtered.filter(potentialFilter);
 		filtered = filtered.filter(trendFilter);
 		
@@ -235,7 +277,7 @@ dl {
 					
 					coordsHeat.push([filtered[row].lat, filtered[row].lon]);
 					var marker = L.marker([filtered[row].lat, filtered[row].lon]).addTo(pointGroupLayer);
-					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>" + filtered[row].sales_2017 + "</dd><dt>2018 Sales </dt><dd>" + filtered[row].sales_2018 +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" + filtered[row].tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential + "</dd></dl>", 
+					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$." + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$." + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" + filtered[row].tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential + "</dd></dl>", 
 					{
 					maxWidth: 380,
 					maxHeight: 700
@@ -269,14 +311,14 @@ dl {
 			
 			
 			}
-		
-			var drawnItems = new L.FeatureGroup();
-			 //map.addLayer(drawnItems);
+			
+			 
+			 map.addLayer(drawnItems);
 			 L.drawLocal.draw.toolbar.buttons.polygon = 'Draw a polygon!';
 			 
 			 var drawControl = new L.Control.Draw({
 				position: 'topright',
-				 draw: {polyline: false, marker: false},
+				 draw: {polyline: false, marker: false, rectangle: false, circle: false},
 				 edit: {
 					 featureGroup: drawnItems,
 					 remove: false
@@ -286,17 +328,80 @@ dl {
 			 
 			 map.addControl(drawControl);
 			
-			map.on('draw:created', function(e) {
+			
+			//function for new created polygons. Deletes previous polygon and creates new one
+			
+			function getWithin(e){
+					//reset variables used in summary
+				totTier1 = 0;
+				totTier2 = 0;
+				totTier3 = 0;
+				totLow = 0;
+				totMod = 0;
+				totHigh = 0;
+				
+				
+				//end variables in summary----------
+				drawnAmount =1;
+				 summaryPoints=[];
+			//Loop to store client data inside drawn polygon	
+				 for(var row = 0; row < filtered.length; row++) {
+					if (filtered[row].lat>0){
+						var ptsTurf = turf.point([filtered[row].lon, filtered[row].lat]);
+						
+						var poly = drawnItems.toGeoJSON();
+						
+						if(turf.booleanWithin(ptsTurf, poly.features[0]) === true){
+							summaryPoints.push(filtered[row]);
+							//assign values to variables for summary
+							if (filtered[row].tier === "Tier 1"){totTier1++;}
+							if (filtered[row].tier === "Tier 2"){totTier2++;}
+							if (filtered[row].tier === "Tier 3"){totTier3++;}
+							if (filtered[row].tier === "Tier 4"){totTier4++;}
+							if (filtered[row].tier === null || filtered[row].tier === "N/A"){noTier++;}
+							if (filtered[row].sales_potential === null || filtered[row].sales_potential === "N/A"){noPotential++;}
+							if (filtered[row].sales_potential === "Low"){totLow++;}
+							if (filtered[row].sales_potential === "Moderate"){totMod++;}
+							if (filtered[row].sales_potential === "High"){totHigh++;}
+							sales2017 += filtered[row].sales_2017;
+							sales2018 += filtered[row].sales_2018;
+						}
+						
+					}
+				}
+				
+				avg2017 = sales2017/(filtered.length);
+				avg2018 = sales2018/(filtered.length);
+				 
+			};
+			map.on('draw:created', function (e){
 				map.removeLayer(drawnItems); drawnItems.clearLayers(); drawnItems.addLayer(e.layer); 
 				// Each time a feaute is created, it's added to the over arching feature group
 				 map.addLayer(drawnItems);
-			});
-			map.fitBounds(pointGroupLayer.getBounds());	
-			$('input[name="tier"]').click(drawPoints);
-			$('input[name="potential"]').click(drawPoints);
-			$('input[name="trend"]').click(drawPoints);
+				 getWithin(e);
 			
-		
+			});
+			
+			map.on('draw:edited', getWithin);
+				
+			map.fitBounds(pointGroupLayer.getBounds());	
+			$('input[name="tier"]').click(function(e){
+			drawPoints();
+			if (drawnAmount>0){ getWithin(e);}});
+			$('input[name="potential"]').click(function(e){
+			drawPoints();
+			if (drawnAmount>0){ getWithin(e);}});
+			$('input[name="trend"]').click(function(e){
+			drawPoints();
+			if (drawnAmount>0){ getWithin(e);}});
+			
+			
+			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
+				var dialog = L.control.dialog({maxSize: [400, 400]})
+              .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl>")
+			  .addTo(map);
+			  
+			});
 		
 		
 	
