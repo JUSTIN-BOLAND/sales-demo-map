@@ -302,6 +302,7 @@ dl {
 					// icon
 					if(filtered[row].trend === "Extreme Growth (50+)" || filtered[row].trend === "Major Growth (20 to 49)" || filtered[row].trend ===  "Moderate Growth (5 to 19)"){trendCategory = 'Growing';}
 					else if(filtered[row].trend === "Moderate Loss (-19 to -5)" || filtered[row].trend === "Major Loss (-49 to -20)" || filtered[row].trend === "Extreme Loss (-50+)"){trendCategory = 'Declining';}
+					else{trendCategory="";}
 					var icon = L.divIcon({
 						className: "my-div-icon",
 						iconSize: [20, 20],
