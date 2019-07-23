@@ -197,7 +197,7 @@ dl {
 	}
 	
 	
-	var clusters = L.markerClusterGroup({ disableClusteringAtZoom: 15 });
+	//var clusters = L.markerClusterGroup({ disableClusteringAtZoom: 15 });
 	pointGroupLayer = L.featureGroup();
 	
 	var clicks = 0; //click counter for filters
@@ -231,11 +231,11 @@ dl {
 		
 		coordsHeat = []; //define an array to store coordinates
 		
-		if (clicks > 0){map.removeLayer(heat); clusters.clearLayers();}
+		if (clicks > 0){map.removeLayer(heat);}
 			clicks++;
 			
-		//map.removeLayer(pointGroupLayer)
-		//pointGroupLayer = L.featureGroup().addTo(map);
+		map.removeLayer(pointGroupLayer)
+		pointGroupLayer = L.featureGroup().addTo(map);
 		//filters---------------
 		tierfilter = [];
 		potentialfilter = [];
@@ -298,8 +298,9 @@ dl {
 					}); 
 					
 					
-					clusters.addLayer(marker);
-					map.addLayer(clusters);
+					//clusters.addLayer(marker);
+					//map.addLayer(clusters);
+					
 					var trendCategory;
 					// icon
 					if(filtered[row].trend === "Extreme Growth (50+)" || filtered[row].trend === "Major Growth (20 to 49)" || filtered[row].trend ===  "Moderate Growth (5 to 19)"){trendCategory = 'Growing';}
