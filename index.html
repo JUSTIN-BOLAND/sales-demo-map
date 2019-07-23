@@ -225,7 +225,7 @@ dl {
 				
 				//end variables in summary----------
 	
-	
+	var dialog;
 	var drawnAmount = 0;
 	function drawPoints(){      //function called when a checkbox is clicked
 		
@@ -362,7 +362,7 @@ dl {
 				sales2018 = 0;
 				
 				
-				
+				if (dialog != undefined){dialog.destroy();}
 				
 				//end variables in summary----------
 				drawnAmount =1;
@@ -397,10 +397,11 @@ dl {
 				avg2018 = sales2018/(summaryPoints.length);
 				
 				//display dialog box summary
-				var dialog = L.control.dialog({size: [380, 550], maxSize: [400, 400], anchor: [0, 250]})
+				dialog = L.control.dialog({size: [380, 550], maxSize: [400, 400], anchor: [0, 250]})
                 .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
+				//if(document.getElementById("download") == null){document.getElementById("download").id = "old";}
 			    document.getElementById("download").addEventListener("click", downloadExcel);
 				function downloadExcel(){
 					var xls = new xlsExport(summaryPoints, 'title');
@@ -466,7 +467,19 @@ dl {
 			});
 			
 			
-			
+			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
+				if (dialog != undefined){dialog.destroy();}
+				dialog = L.control.dialog({size: [380, 550], maxSize: [400, 400], anchor: [0, 250]})
+                .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
+			    .addTo(map);
+			    dialog.hideResize();
+				//if(document.getElementById("download") == null){document.getElementById("download").id = "old";}
+			    document.getElementById("download").addEventListener("click", downloadExcel);
+				function downloadExcel(){
+					var xls = new xlsExport(summaryPoints, 'title');
+					 xls.exportToXLS('export.xls')
+				};
+			});
 			
 			
 		
