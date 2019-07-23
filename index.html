@@ -88,7 +88,8 @@ h2{
 
 dl {
     border: 1.5px double #ccc;
-    padding: 0.5em;
+    padding: 0.2em;
+	
   }
   dt {
 	
@@ -176,8 +177,8 @@ dl {
 	
 
 	
-	var map = L.map('map', {zoomControl: false}).setView([35, -99], 4);
-	
+	var map = L.map('map', {zoomControl: true}).setView([35, -99], 4);
+	map.zoomControl.setPosition('bottomright');
 	//var tonerLayer = new L.StamenTileLayer("watercolor");
 	//map.addLayer(tonerLayer);
 	
@@ -317,7 +318,7 @@ dl {
 				}
 				
 				if (coordsHeat.length > 0){heat = L.heatLayer(coordsHeat, {minOpacity: 0.4}).addTo(map);}
-				console.log(coordsHeat.length);
+				
 				
 				
 					
@@ -353,6 +354,9 @@ dl {
 				totLow = 0;
 				totMod = 0;
 				totHigh = 0;
+				sales2017 = 0;
+				sales2018 = 0;
+				
 				
 				
 				//end variables in summary----------
@@ -383,9 +387,9 @@ dl {
 						
 					}
 				}
-				
-				avg2017 = sales2017/(filtered.length);
-				avg2018 = sales2018/(filtered.length);
+				console.log(filtered.length);
+				avg2017 = sales2017/(summaryPoints.length);
+				avg2018 = sales2018/(summaryPoints.length);
 				 
 			};
 			map.on('draw:created', function (e){
@@ -447,8 +451,7 @@ dl {
 			
 			
 			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
-				var dialog = L.control.dialog({size: [380, 522], maxSize: [400, 400], anchor: [0, 250]})
-			
+				var dialog = L.control.dialog({size: [380, 528], maxSize: [400, 400], anchor: [0, 250]})
               .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl>")
 			  .addTo(map);
 			  dialog.hideResize();
