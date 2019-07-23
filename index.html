@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
 	
 	<script src="leaflet-heat.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+	
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
 	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
@@ -267,7 +270,27 @@ dl {
 			
 			}
 		
+			var drawnItems = new L.FeatureGroup();
+			 //map.addLayer(drawnItems);
+			 L.drawLocal.draw.toolbar.buttons.polygon = 'Draw a polygon!';
+			 
+			 var drawControl = new L.Control.Draw({
+				position: 'topright',
+				 draw: {polyline: false, marker: false},
+				 edit: {
+					 featureGroup: drawnItems,
+					 remove: false
+				 }
+				 
+			 });
+			 
+			 map.addControl(drawControl);
 			
+			map.on('draw:created', function(e) {
+				map.removeLayer(drawnItems); drawnItems.clearLayers(); drawnItems.addLayer(e.layer); 
+				// Each time a feaute is created, it's added to the over arching feature group
+				 map.addLayer(drawnItems);
+			});
 			map.fitBounds(pointGroupLayer.getBounds());	
 			$('input[name="tier"]').click(drawPoints);
 			$('input[name="potential"]').click(drawPoints);
