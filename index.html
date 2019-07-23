@@ -39,8 +39,9 @@
 	
 	<script src=https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.5/turf.min.js></script>
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+	
 	
 	
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
@@ -58,7 +59,7 @@
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
+  width: 240px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -86,7 +87,7 @@ h2{
 }
 
 dl {
-    border: 2px double #ccc;
+    border: 1.5px double #ccc;
     padding: 0.5em;
   }
   dt {
@@ -132,12 +133,18 @@ dl {
 			<tr><td><input type="checkbox" name="tier" value="Tier 3" checked=checked/>Tier 3</td></tr>		
 			<tr><td><input type="checkbox" name="tier" value="Tier 4" checked=checked/>Tier 4</td></tr>
 			<tr><td><input type="checkbox" name="tier" value="null" checked=checked/>No tier</td></tr>
+			<tr><td></tr></td>
+			<tr><td><input type="radio" name="radiotier" value="SelectAll"/>Select All</tr></td>
+			<tr><td><input type="radio" name="radiotier" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
 			<h2 class="filterTitle">Growth Potential</h2>	
 			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low</td></tr>
 			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate</td></tr>
 			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High</td></tr>
 			<tr><td><input type="checkbox" name="potential" value="null" checked=checked />No value</td></tr>
+			<tr><td></tr></td>
+			<tr><td><input type="radio" name="radiopotential" value="SelectAll"/>Select All</tr></td>
+			<tr><td><input type="radio" name="radiopotential" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
 			<h2 class="filterTitle">Sales Trend</h2>	
 			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td></tr>
@@ -149,6 +156,9 @@ dl {
 			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</td></tr>
 			<tr><td><input type="checkbox" name="trend" value="null" checked=checked />No value</td></tr>
+			<tr><td></tr></td>
+			<tr><td><input type="radio" name="radiotrend" value="SelectAll"/>Select All</tr></td>
+			<tr><td><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</tr></td>
 				
 	</table>
 			
@@ -194,6 +204,7 @@ dl {
 	var summaryPoints = new Array(); //array with the points within the drawn polygon
 	drawPoints();
 	var drawnItems = new L.FeatureGroup();
+	//map.addLayer(drawnItems);
 	
 	//variables used in summary
 				var totTier1 = 0;
@@ -277,7 +288,7 @@ dl {
 					
 					coordsHeat.push([filtered[row].lat, filtered[row].lon]);
 					var marker = L.marker([filtered[row].lat, filtered[row].lon]).addTo(pointGroupLayer);
-					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$." + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$." + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" + filtered[row].tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential + "</dd></dl>", 
+					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$." + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$." + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" +tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential + "</dd></dl>", 
 					{
 					maxWidth: 380,
 					maxHeight: 700
@@ -318,14 +329,14 @@ dl {
 			 map.addLayer(drawnItems);
 			 L.drawLocal.draw.toolbar.buttons.polygon = 'Draw a polygon!';
 			 
+			 
 			 var drawControl = new L.Control.Draw({
 				position: 'topright',
-				 draw: {polyline: false, marker: false, circle: false},
+				 draw: {polyline: false, marker: false, circle: false, circlemarker: false},
 				 edit: {
 					 featureGroup: drawnItems,
-					 remove: false
-				 }
-				 
+					 remove: true
+				 }				 
 			 });
 			 
 			 map.addControl(drawControl);
@@ -389,17 +400,54 @@ dl {
 			map.fitBounds(pointGroupLayer.getBounds());	
 			$('input[name="tier"]').click(function(e){
 			drawPoints();
+			$('input[name="radiotier"]').prop('checked', false);
 			if (drawnAmount>0){ getWithin(e);}});
+			
 			$('input[name="potential"]').click(function(e){
 			drawPoints();
+			$('input[name="radiopotential"]').prop('checked', false);
 			if (drawnAmount>0){ getWithin(e);}});
+			
 			$('input[name="trend"]').click(function(e){
 			drawPoints();
+			$('input[name="radiotrend"]').prop('checked', false);
 			if (drawnAmount>0){ getWithin(e);}});
+			
+			
+			
+			$('input[value="UnselectAll"]').click(function(e){
+				
+				if(this.attributes["name"].value === "radiotier"){
+					$('input[name="tier"]').prop('checked', false);
+				}
+				else if(this.attributes["name"].value === "radiotrend"){
+					$('input[name="trend"]').prop('checked', false);
+				}
+				else{
+					$('input[name="potential"]').prop('checked', false);
+				}
+				drawPoints();
+			});
+			
+			$('input[value="SelectAll"]').click(function(e){
+
+				if(this.attributes["name"].value === "radiotier"){
+					$('input[name="tier"]').prop('checked', true);
+				}
+				else if(this.attributes["name"].value === "radiotrend"){
+					$('input[name="trend"]').prop('checked', true);
+				}
+				else{
+					$('input[name="potential"]').prop('checked', true);
+				}
+				drawPoints();
+			});
+			
 			
 			
 			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
-				var dialog = L.control.dialog({maxSize: [400, 400]})
+				var dialog = L.control.dialog({size: [380, 500], maxSize: [400, 400]})
+			
               .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl>")
 			  .addTo(map);
 			  
