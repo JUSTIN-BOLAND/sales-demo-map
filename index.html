@@ -216,8 +216,8 @@ dl {
 		}
 		
 		var filtered = data.filter(tierFilter);
-		filtered = data.filter(potentialFilter);
-		filtered = data.filter(trendFilter);
+		filtered = filtered.filter(potentialFilter);
+		filtered = filtered.filter(trendFilter);
 		
 		
 		
