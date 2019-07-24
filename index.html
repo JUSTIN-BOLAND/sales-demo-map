@@ -14,8 +14,7 @@
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
    crossorigin=""></script>
-    
-	<!-- <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/"></script> -->
+
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -68,7 +67,7 @@
   background-color: rgba(255,255,255, 0.5);
   
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 8px;
+  padding-top: 3px;
 }
 .summary > dt{
 	float: left;
@@ -76,7 +75,7 @@
 	
     width: 160px;
    
-    font-weight: bold;
+    font-weight: normal;
     color: black;
 }
 h2{
@@ -95,7 +94,7 @@ dl {
 	
     width: 100px;
    
-    font-weight: bold;
+    font-weight: normal;
     color: green;
   }
   dt::after {
@@ -106,16 +105,7 @@ dl {
     margin: 0 0 0 100px;
     padding: 0 0 0.5em 0;
   }
-.triangle {
-	fill:none;stroke: black ;stroke-width:3px; opacity: 1;
-    
-}
 
-.triangle.High   {fill: PeachPuff}
-.triangle.Moderate {fill: LightSkyBlue}
-.triangle.Low    {fill: MediumOrchid}
-.triangle.Declining    {stroke: red}
-.triangle.Growing    {stroke: Lime}
 </style>
 <div class="sidenav">
 	<table><h2 class="filterTitle">MAH Tier</h2>	
@@ -129,22 +119,22 @@ dl {
 			<tr><td><input type="radio" name="radiotier" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
 			<h2 class="filterTitle">Growth Potential</h2>	
-			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="MediumOrchid" stroke="black" stroke-width="3" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="LightSkyBlue" stroke="black" stroke-width="3" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="PeachPuff" stroke="black" stroke-width="3" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="null" checked=checked />No value</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="white" stroke="black" stroke-width="3" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="MediumOrchid" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="LightSkyBlue" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="PeachPuff" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="null" checked=checked />No value</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><polygon fill="white" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td></tr></td>
 			<tr><td><input type="radio" name="radiopotential" value="SelectAll"/>Select All</tr></td>
 			<tr><td><input type="radio" name="radiopotential" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
 			<h2 class="filterTitle">Sales Trend</h2>	
-			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="Yellow" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="null" checked=checked />No value</td><td></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="No Sales" checked=checked />No Sales</td><td></td></tr>
 			<tr><td></tr></td>
@@ -152,13 +142,18 @@ dl {
 			<tr><td><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</tr></td>
 				
 	</table>
-			
+	
+  <button type="button" id="clusterButton">Cluster/Uncluster</button>	
+	<button type="button" id="heatButton">Heatmap</button>  
 	
 </div>
 
 <div id="map" style="width: 100vw; height: 100vh; z-index: 0;"></div>
  <script src="https://unpkg.com/leaflet-canvas-marker@0.2.0"></script>
 <script>
+	var clusterButton = document.getElementById("clusterButton");
+	var heatButton = document.getElementById("heatButton");
+	var heatActive = false;
 	$.getJSON('https://api.sheety.co/d1d52423-9f56-40da-bfcf-f1cd314dacbc', function(json) {
 		addPoints(json);
 	});
@@ -181,7 +176,8 @@ dl {
 	}
 	
 	
-	//var clusters = L.markerClusterGroup({ disableClusteringAtZoom: 15 });
+	var clusters;
+	var clusterZoom = 18;
 	pointGroupLayer = L.featureGroup();
 	
 	var clicks = 0; //click counter for filters
@@ -212,16 +208,22 @@ dl {
 	var dialog;
 	var drawnAmount = 0;
 	function drawPoints(){      //function called when a checkbox is clicked
+		if (clicks > 0){clusters.clearLayers(); map.removeLayer(clusters);}
+		if (heatActive ===true){
+				map.removeLayer(heat);
+			}
+		clusters = L.markerClusterGroup({ disableClusteringAtZoom: clusterZoom });
+	
 		var markers = [];
 		coordsHeat = []; //define an array to store coordinates
-		//if (clicks > 0){map.removeLayer(ciLayer);}
+		
 		
 		
 		//if (clicks > 0){map.removeLayer(heat);}
 			clicks++;
 			
-		map.removeLayer(pointGroupLayer)
-		pointGroupLayer = L.featureGroup().addTo(map);
+		//map.removeLayer(pointGroupLayer)
+		//pointGroupLayer = L.featureGroup().addTo(map);
 		
 		//filters---------------
 		tierfilter = [];
@@ -285,8 +287,8 @@ dl {
 					}); 
 					
 					
-					//clusters.addLayer(marker);
-					//map.addLayer(clusters);
+					clusters.addLayer(marker);
+					map.addLayer(clusters);
 					
 					var trendCategory;
 					// icon
@@ -294,7 +296,7 @@ dl {
 					else if(filtered[row].trend === "Moderate Loss (-19 to -5)" || filtered[row].trend === "Major Loss (-49 to -20)" || filtered[row].trend === "Extreme Loss (-50+)"){trendCategory = 'Declining';}
 					else{trendCategory="";}
 					
-					//var svg = '<svg width="400px" height="400px" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" version="1.1"><polygon style="fill:none;stroke: black ;stroke-width:3px; opacity: 1" points="183.138438763306,172 16.8615612366939,172 100,28" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="90">5</text></svg>' // insert your own svg
+					//var svg = '<svg width="400px" height="400px" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" version="1.1"><polygon style="fill:none;stroke: black ;stroke-width:5px; opacity: 1" points="183.138438763306,172 16.8615612366939,172 100,28" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="90">5</text></svg>' // insert your own svg
 					if (filtered[row].sales_potential === "Low"){
 						var color = "MediumOrchid";
 					}
@@ -310,22 +312,22 @@ dl {
 					
 					
 					if (trendCategory === "Growing"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else if (trendCategory === "Declining"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else if (filtered[row].trend === "No Growth (-4 to 4)"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="Yellow" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else{
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					var iconUrl = 'data:image/svg+xml;base64,' + btoa(svg);
 					
 					var icon = L.icon({
 					  iconUrl: iconUrl,
-					  iconSize: [25, 25],
+					  iconSize: [31, 31],
 					  iconAnchor: [10, 9]
 					});
 	
@@ -337,7 +339,7 @@ dl {
 					
 				}
 				
-				//if (coordsHeat.length > 0){heat = L.heatLayer(coordsHeat, {minOpacity: 0.4}).addTo(map);}
+				if (heatActive === true && coordsHeat.length > 0){heat = L.heatLayer(coordsHeat, {minOpacity: 0.4}).addTo(map);}
 				//ciLayer = L.canvasIconLayer({}).addTo(map);
 				
 				
@@ -441,6 +443,8 @@ dl {
 			map.fitBounds(pointGroupLayer.getBounds());	
 			$('input[name="tier"]').click(function(e){
 			drawPoints();
+			
+			
 			$('input[name="radiotier"]').prop('checked', false);
 			if (drawnAmount>0){ getWithin(e);}});
 			
@@ -482,7 +486,17 @@ dl {
 				}
 				drawPoints();
 			});
-			
+			clusterButton.addEventListener("click", function(e){
+				clusterZoom = (clusterZoom === 18) ? 0 : 18;
+				drawPoints();
+				console.log(clusterZoom);
+			});
+			heatButton.addEventListener("click", function(e){
+				if (coordsHeat.length > 0 && heatActive===false){heat = L.heatLayer(coordsHeat, {minOpacity: 0.4}).addTo(map);}
+				if (heatActive===true){map.removeLayer(heat);}
+				heatActive = !heatActive;
+				console.log(heatActive);
+			});
 			
 			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
 				if (dialog != undefined){dialog.destroy();}
@@ -497,6 +511,11 @@ dl {
 					 xls.exportToXLS('export.xls')
 				};
 			});
+			
+			
+		
+	
+	
 	
 }
 			
