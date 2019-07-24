@@ -141,7 +141,7 @@ dl {
 			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="Gold" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="Yellow" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40"></text></svg></td></tr>
@@ -166,16 +166,10 @@ dl {
 	
 	var map = L.map('map', {zoomControl: true}).setView([35, -99], 4);
 	map.zoomControl.setPosition('bottomright');
-	//var tonerLayer = new L.StamenTileLayer("watercolor");
-	//map.addLayer(tonerLayer);
+	var tonerLayer = new L.StamenTileLayer("toner-lite");
+	map.addLayer(tonerLayer);
 	
-	var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012',
-	preferCanvas: true,
-	opacity: 0.8
-	});
-	Esri_WorldStreetMap.addTo(map);
-	//Esri_WorldStreetMap.bringToBack();
+	
 	
 	var pointGroupLayer;
 	
@@ -316,22 +310,22 @@ dl {
 					
 					
 					if (trendCategory === "Growing"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="0 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="33,7,8,57,57,57" /><circle cx="32" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="green" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
 					}
 					else if (trendCategory === "Declining"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="0 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="33,7,8,57,57,57" /><circle cx="32" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="red" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
 					}
 					else if (filtered[row].trend === "No Growth (-4 to 4)"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="0 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="33,7,8,57,57,57" /><circle cx="32" cy="38" r="33" stroke="Gold" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="Yellow" stroke-width="3" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
 					}
 					else{
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="0 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="33,7,8,57,57,57" /><circle cx="32" cy="38" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
 					}
 					var iconUrl = 'data:image/svg+xml;base64,' + btoa(svg);
 					
 					var icon = L.icon({
 					  iconUrl: iconUrl,
-					  iconSize: [20, 18],
+					  iconSize: [22, 22],
 					  iconAnchor: [10, 9]
 					});
 	
