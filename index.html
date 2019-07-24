@@ -64,7 +64,7 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: rgba(255,255,255, 0.5);
+  background-color: rgba(0,0,0, 0.5);
   
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 3px;
@@ -106,7 +106,12 @@ dl {
     margin: 0 0 0 100px;
     padding: 0 0 0.5em 0;
   }
-
+td{
+	color: white;
+}
+.filterTitle{
+	color: white;
+}
 </style>
 <div class="sidenav">
 	<table><h2 class="filterTitle">MAH Tier</h2>	
@@ -423,7 +428,7 @@ dl {
 				avg2018 = sales2018/(summaryPoints.length);
 				
 				//display dialog box summary
-				dialog = L.control.dialog({size: [380, 535], maxSize: [400, 400], anchor: [0, 250]})
+				dialog = L.control.dialog({size: [380, 5350], maxSize: [400, 400], anchor: [0, 250]})
                 .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
@@ -517,7 +522,11 @@ dl {
 					 xls.exportToXLS('export.xls')
 				};
 			});
-
+			
+			
+		
+	
+	
 	
 }
 			
