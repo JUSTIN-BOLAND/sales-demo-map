@@ -134,9 +134,9 @@ td{
 			<tr><td><input type="radio" name="radiopotential" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
 			<h2 class="filterTitle">Sales Trend</h2>	
-			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td><td><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 90 90"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
@@ -428,7 +428,7 @@ td{
 				avg2018 = sales2018/(summaryPoints.length);
 				
 				//display dialog box summary
-				dialog = L.control.dialog({size: [380, 5350], maxSize: [400, 400], anchor: [0, 250]})
+				dialog = L.control.dialog({size: [380, 550], maxSize: [400, 400], anchor: [0, 250]})
                 .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
@@ -524,9 +524,6 @@ td{
 			});
 			
 			
-		
-	
-	
 	
 }
 			
