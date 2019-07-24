@@ -70,7 +70,6 @@
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 8px;
 }
-
 .summary > dt{
 	float: left;
     clear: left;
@@ -79,14 +78,11 @@
    
     font-weight: bold;
     color: black;
-
 }
-
 h2{
 	text-align:center;
 	font-size: 14pt;
 }
-
 dl {
     border: 1.5px double #ccc;
     padding: 0.2em;
@@ -110,23 +106,16 @@ dl {
     margin: 0 0 0 100px;
     padding: 0 0 0.5em 0;
   }
-.circle {
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    border: 1.9px solid black;
-    text-align: center;
-    display: table-cell;
-    vertical-align: middle;
-
+.triangle {
+	fill:none;stroke: black ;stroke-width:3px; opacity: 1;
+    
 }
-.circle.High   {background-color: PeachPuff}
-.circle.Moderate {background-color: LightSkyBlue}
-.circle.Low    {background-color: MediumOrchid}
 
-.circle.Declining    {border-color: red}
-.circle.Growing    {border-color: Lime}
-
+.triangle.High   {fill: PeachPuff}
+.triangle.Moderate {fill: LightSkyBlue}
+.triangle.Low    {fill: MediumOrchid}
+.triangle.Declining    {stroke: red}
+.triangle.Growing    {stroke: Lime}
 </style>
 <div class="sidenav">
 	<table><h2 class="filterTitle">MAH Tier</h2>	
@@ -168,15 +157,12 @@ dl {
 </div>
 
 <div id="map" style="width: 100vw; height: 100vh; z-index: 0;"></div>
+ <script src="https://unpkg.com/leaflet-canvas-marker@0.2.0"></script>
 <script>
-
-
-
 	$.getJSON('https://api.sheety.co/d1d52423-9f56-40da-bfcf-f1cd314dacbc', function(json) {
 		addPoints(json);
 	});
 	
-
 	
 	var map = L.map('map', {zoomControl: true}).setView([35, -99], 4);
 	map.zoomControl.setPosition('bottomright');
@@ -184,12 +170,15 @@ dl {
 	//map.addLayer(tonerLayer);
 	
 	var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012',
+	preferCanvas: true
 	});
 	Esri_WorldStreetMap.addTo(map);
-	
+	//Esri_WorldStreetMap.bringToBack();
 	
 	var pointGroupLayer;
+	
+	
 	
 	function addPoints(data) {
 	if (pointGroupLayer != null) {
@@ -228,14 +217,17 @@ dl {
 	var dialog;
 	var drawnAmount = 0;
 	function drawPoints(){      //function called when a checkbox is clicked
-		
+		var markers = [];
 		coordsHeat = []; //define an array to store coordinates
+		//if (clicks > 0){map.removeLayer(ciLayer);}
 		
-		if (clicks > 0){map.removeLayer(heat);}
+		
+		//if (clicks > 0){map.removeLayer(heat);}
 			clicks++;
 			
 		map.removeLayer(pointGroupLayer)
 		pointGroupLayer = L.featureGroup().addTo(map);
+		
 		//filters---------------
 		tierfilter = [];
 		potentialfilter = [];
@@ -306,27 +298,54 @@ dl {
 					if(filtered[row].trend === "Extreme Growth (50+)" || filtered[row].trend === "Major Growth (20 to 49)" || filtered[row].trend ===  "Moderate Growth (5 to 19)"){trendCategory = 'Growing';}
 					else if(filtered[row].trend === "Moderate Loss (-19 to -5)" || filtered[row].trend === "Major Loss (-49 to -20)" || filtered[row].trend === "Extreme Loss (-50+)"){trendCategory = 'Declining';}
 					else{trendCategory="";}
-					var icon = L.divIcon({
-						className: "my-div-icon",
-						iconSize: [20, 20],
-						html: "<div class='circle "+filtered[row].sales_potential+" "+trendCategory+"'><b>"+tier_no+"</b></div>"
+					
+					//var svg = '<svg width="400px" height="400px" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" version="1.1"><polygon style="fill:none;stroke: black ;stroke-width:3px; opacity: 1" points="183.138438763306,172 16.8615612366939,172 100,28" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="90">5</text></svg>' // insert your own svg
+					if (filtered[row].sales_potential === "Low"){
+						var color = "MediumOrchid";
+					}
+					else if (filtered[row].sales_potential === "Moderate"){
+						var color = "LightSkyBlue";
+					}
+					else if (filtered[row].sales_potential === "High"){
+						var color = "PeachPuff";
+					}
+					else{
+						var color = "white";
+					}
+					
+					
+					if (trendCategory === "Growing"){
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 64 64"><polygon fill="'+color+'" stroke="green" stroke-width="3" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+					}
+					else if (trendCategory === "Declining"){
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 64 64"><polygon fill="'+color+'" stroke="red" stroke-width="3" points="30,4,4,60,60,60" transform="rotate(180, 30, 40)"/><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+					}
+					else{
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 64 64"><polygon fill="'+color+'" stroke="black" stroke-width="1" points="10,4,10,50,60,50,60,4" /><text x="32" y="50" text-anchor="middle" fill="black" font-size="40">'+tier_no+'</text></svg>';
+					}
+					var iconUrl = 'data:image/svg+xml;base64,' + btoa(svg);
+					
+					var icon = L.icon({
+					  iconUrl: iconUrl,
+					  iconSize: [20, 18],
+					  iconAnchor: [10, 9]
 					});
+	
 					
 					marker.setIcon(icon);
-						
+					//markers.push(marker);
 					}	 
 					
 					
 				}
 				
-				if (coordsHeat.length > 0){heat = L.heatLayer(coordsHeat, {minOpacity: 0.4}).addTo(map);}
+				//if (coordsHeat.length > 0){heat = L.heatLayer(coordsHeat, {minOpacity: 0.4}).addTo(map);}
+				//ciLayer = L.canvasIconLayer({}).addTo(map);
 				
 				
 				
-					
-			
-			
-			
+				
+							
 			}
 			
 			 
@@ -454,7 +473,6 @@ dl {
 			});
 			
 			$('input[value="SelectAll"]').click(function(e){
-
 				if(this.attributes["name"].value === "radiotier"){
 					$('input[name="tier"]').prop('checked', true);
 				}
@@ -488,8 +506,6 @@ dl {
 	
 	
 }
-
-
 			
 </script>
 
