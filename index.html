@@ -81,6 +81,7 @@
 h2{
 	text-align:center;
 	font-size: 14pt;
+	margin-top: 3px;
 }
 dl {
     border: 1.5px double #ccc;
@@ -142,15 +143,18 @@ dl {
 			<tr><td><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</tr></td>
 				
 	</table>
+	<div style="padding-top: 20px;"></div>
 	
-  <button type="button" id="clusterButton">Cluster/Uncluster</button>	
-	<button type="button" id="heatButton">Heatmap</button>  
+  <div style="text-align: center;"><button type="button" id="clusterButton">Cluster/Uncluster</button>	
+	<button type="button" id="heatButton">Heatmap</button></div> 
 	
 </div>
 
 <div id="map" style="width: 100vw; height: 100vh; z-index: 0;"></div>
  <script src="https://unpkg.com/leaflet-canvas-marker@0.2.0"></script>
 <script>
+	
+
 	var clusterButton = document.getElementById("clusterButton");
 	var heatButton = document.getElementById("heatButton");
 	var heatActive = false;
@@ -160,9 +164,11 @@ dl {
 	
 	
 	var map = L.map('map', {zoomControl: true}).setView([35, -99], 4);
+	var scaleBar = L.control.scale({imperial: false, position: 'bottomright'}).addTo(map);
 	map.zoomControl.setPosition('bottomright');
 	var tonerLayer = new L.StamenTileLayer("toner-lite");
 	map.addLayer(tonerLayer);
+	
 	
 	
 	
@@ -279,7 +285,7 @@ dl {
 					
 					coordsHeat.push([filtered[row].lat, filtered[row].lon]);
 					var marker = L.marker([filtered[row].lat, filtered[row].lon]).addTo(pointGroupLayer);
-					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$." + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$." + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" +tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential + "</dd></dl>", 
+					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$." + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$." + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" +tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+ "</dd></dl>", 
 					{
 					maxWidth: 380,
 					maxHeight: 700
@@ -417,7 +423,7 @@ dl {
 				avg2018 = sales2018/(summaryPoints.length);
 				
 				//display dialog box summary
-				dialog = L.control.dialog({size: [380, 550], maxSize: [400, 400], anchor: [0, 250]})
+				dialog = L.control.dialog({size: [380, 535], maxSize: [400, 400], anchor: [0, 250]})
                 .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
@@ -511,11 +517,7 @@ dl {
 					 xls.exportToXLS('export.xls')
 				};
 			});
-			
-			
-		
-	
-	
+
 	
 }
 			
