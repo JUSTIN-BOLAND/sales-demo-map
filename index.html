@@ -111,10 +111,13 @@ dl {
   }
 td{
 	color: white;
+	padding: 0px;
 }
+
 .filterTitle{
 	color: white;
 	font-size: 18px;
+	margin-bottom: 2px;
 }
 </style>
 <div class="sidenav">
@@ -157,7 +160,7 @@ td{
 			<tr><td><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</tr></td>
 				
 	</table>
-	<div style="padding-top: 20px;"></div>
+	<div style="padding-top: 10px;"></div>
 	
   <div style="text-align: center;"><button type="button" id="clusterButton">Cluster/Uncluster</button>	
 	<button type="button" id="heatButton">Heatmap</button></div> 
@@ -353,7 +356,7 @@ td{
 					var pulse;
 					if (filtered[row].inpex_mah === "MAH"){
 						pulse = '<circle cx="32" cy="38" fill="none" r="33" stroke="blue" stroke-width="6"><animate attributeName="r" from="20" to="38" dur="1.5s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" from="1" to="0" dur="1.5s" begin="0s" repeatCount="indefinite"/></circle>';
-						console.log("mah");
+						
 					}
 					else{pulse = "";}
 					
@@ -567,8 +570,7 @@ td{
 					 xls.exportToXLS('export.xls')
 				};
 			});
-	
-	
+				
 	
 }
 			
