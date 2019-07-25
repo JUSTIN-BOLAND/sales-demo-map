@@ -355,22 +355,22 @@ td{
 					
 					var pulse;
 					if (filtered[row].inpex_mah === "MAH"){
-						pulse = '<circle cx="49" cy="52" fill="none" r="50" stroke="blue" stroke-width="8"><animate attributeName="r" from="35" to="50" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/></circle>';
+						pulse = '<circle cx="54" cy="57" fill="none" r="53" stroke="blue" stroke-width="8"><animate attributeName="r" from="39" to="53" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/></circle>';
 						
 					}
 					else{pulse = "";}
 					
 					if (trendCategory === "Growing"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 104 104"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="49,21,24,71,73,71" />'+pulse+'<circle cx="49" cy="52" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="49" y="64" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 108 106"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="54,26,29,76,78,76" />'+pulse+'<circle cx="54" cy="57" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="54" y="69" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else if (trendCategory === "Declining"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 104 104"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="49,21,24,71,73,71" />'+pulse+'<circle cx="49" cy="52" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="49" y="64" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 108 106"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="54,26,29,76,78,76" />'+pulse+'<circle cx="54" cy="57" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="54" y="69" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else if (filtered[row].trend === "No Growth (-4 to 4)"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 104 104"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="49,21,24,71,73,71" />'+pulse+'<circle cx="49" cy="52" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="49" y="64" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 108 106"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="54,26,29,76,78,76" />'+pulse+'<circle cx="54" cy="57" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="54" y="69" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else{
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 104 104"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="49,21,24,71,73,71" />'+pulse+'<circle cx="49" cy="52" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="49" y="64" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 108 106"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="54,26,29,76,78,76" />'+pulse+'<circle cx="54" cy="57" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="54" y="69" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					var iconUrl = 'data:image/svg+xml;base64,' + btoa(svg);
 					
