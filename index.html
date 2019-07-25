@@ -48,6 +48,10 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 	<script src="script/xls-export.js"></script>
+	
+	<script src="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.css" />
+
 </head>
 <body>
 
@@ -110,10 +114,16 @@ td{
 }
 .filterTitle{
 	color: white;
+	font-size: 18px;
 }
 </style>
 <div class="sidenav">
-	<table><h2 class="filterTitle">MAH Tier</h2>	
+	<table><h2 class="filterTitle">INPEx/MAH</h2>	
+			<tr><td><input type="checkbox" name="inpexmah" value="INPEx" checked=checked />INPEx</td></tr>
+			<tr><td><input type="checkbox" name="inpexmah" value="MAH" checked=checked/>MAH</td></tr>
+
+	</table><table>
+	<table><h2 class="filterTitle">Tier</h2>	
 			<tr><td><input type="checkbox" name="tier" value="Tier 1" checked=checked />Tier 1</td></tr>
 			<tr><td><input type="checkbox" name="tier" value="Tier 2" checked=checked/>Tier 2</td></tr>
 			<tr><td><input type="checkbox" name="tier" value="Tier 3" checked=checked/>Tier 3</td></tr>		
@@ -171,7 +181,7 @@ td{
 	Creating map and adding tile layer
 	*/
 	var map = L.map('map', {zoomControl: true}).setView([35, -99], 4);
-	var scaleBar = L.control.scale({imperial: true, position: 'bottomright'}).addTo(map);
+	var scaleBar = L.control.scale({imperial: false, position: 'bottomright'}).addTo(map);
 	map.zoomControl.setPosition('bottomright');
 	var tonerLayer = new L.StamenTileLayer("toner-lite");
 	map.addLayer(tonerLayer);
@@ -240,7 +250,20 @@ td{
 		tierfilter = [];
 		potentialfilter = [];
 		trendfilter = [];
+		inpexfilter = [];
 		
+		
+		//---------INPEx/MAH filter---------------
+		$("input:checkbox[name='inpexmah']:checked").each(function(){
+				
+			if($(this).val() === "null"){inpexfilter.push(null);}
+			else{
+			inpexfilter.push($(this).val());}});
+			
+		function inpexFilter(element) {
+			var valid = inpexfilter;
+			return (valid.includes(element.inpex_mah));
+		}
 		 //--------tier filter-----
 		$("input:checkbox[name='tier']:checked").each(function(){
 				//tierfilter=[];
@@ -277,6 +300,7 @@ td{
 		filtered = data.filter(tierFilter);
 		filtered = filtered.filter(potentialFilter);
 		filtered = filtered.filter(trendFilter);
+		filtered = filtered.filter(inpexFilter);
 		
 		
 		
@@ -293,13 +317,12 @@ td{
 					coordsHeat.push([filtered[row].lat, filtered[row].lon]);
 					var marker = L.marker([filtered[row].lat, filtered[row].lon]).addTo(pointGroupLayer);
 					//create and add popup to marker:
-					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$." + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$." + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" +tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+ "</dd></dl>", 
+					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$." + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$." + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" +tier_no+ "</dd><dt>Sales Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
 					{
 					maxWidth: 380,
 					maxHeight: 700
 					
 					}); 
-					
 					
 					clusters.addLayer(marker);
 					map.addLayer(clusters);
@@ -327,18 +350,24 @@ td{
 						var color = "white";
 					}
 					
+					var pulse;
+					if (filtered[row].inpex_mah === "MAH"){
+						pulse = '<circle cx="32" cy="38" fill="none" r="33" stroke="blue" stroke-width="5"><animate attributeName="r" from="20" to="35" dur="1.5s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" from="1" to="0" dur="1.5s" begin="0s" repeatCount="indefinite"/></circle>';
+						console.log("mah");
+					}
+					else{pulse = "";}
 					
 					if (trendCategory === "Growing"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" />'+pulse+'<circle cx="32" cy="38" r="33" stroke="green" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else if (trendCategory === "Declining"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" />'+pulse+'<circle cx="32" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else if (filtered[row].trend === "No Growth (-4 to 4)"){
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" />'+pulse+'<circle cx="32" cy="38" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					else{
-						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" /><circle cx="32" cy="38" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
+						var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="210" height="500" viewBox="-5 0 90 90"><polygon fill="'+color+'" stroke="black" stroke-width="3" points="32,7,9,57,58,57" />'+pulse+'<circle cx="32" cy="38" r="33" stroke="black" stroke-width="0" fill="transparent" /><text x="33" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38">'+tier_no+'</text></svg>';
 					}
 					var iconUrl = 'data:image/svg+xml;base64,' + btoa(svg);
 					
@@ -463,21 +492,24 @@ td{
 				Following section has the functions for the filter checkboxes, radioboxes and also the buttons to enable/disable heatmaps and clusters
 			*/
 			$('input[name="tier"]').click(function(e){
-			drawPoints();
-			
-			
-			$('input[name="radiotier"]').prop('checked', false);
-			if (drawnAmount>0){ getWithin(e);}});
+				drawPoints();
+				$('input[name="radiotier"]').prop('checked', false);
+				if (drawnAmount>0){ getWithin(e);}});
 			
 			$('input[name="potential"]').click(function(e){
-			drawPoints();
-			$('input[name="radiopotential"]').prop('checked', false);
-			if (drawnAmount>0){ getWithin(e);}});
+				drawPoints();
+				$('input[name="radiopotential"]').prop('checked', false);
+				if (drawnAmount>0){ getWithin(e);}});
 			
 			$('input[name="trend"]').click(function(e){
-			drawPoints();
-			$('input[name="radiotrend"]').prop('checked', false);
-			if (drawnAmount>0){ getWithin(e);}});
+				drawPoints();
+				$('input[name="radiotrend"]').prop('checked', false);
+				if (drawnAmount>0){ getWithin(e);}});
+			
+			$('input[name="inpexmah"]').click(function(e){
+				drawPoints();
+				if (drawnAmount>0){ getWithin(e);}});
+			
 			
 			
 			
@@ -525,9 +557,9 @@ td{
 			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
 				if (dialog != undefined){dialog.destroy();}
 				dialog = L.control.dialog({size: [380, 550], maxSize: [400, 400], anchor: [0, 250]})
-                		.setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
-			  	 .addTo(map);
-			    	dialog.hideResize();
+                .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$."+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$."+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
+			    .addTo(map);
+			    dialog.hideResize();
 				//if(document.getElementById("download") == null){document.getElementById("download").id = "old";}
 			    document.getElementById("download").addEventListener("click", downloadExcel);
 				function downloadExcel(){
@@ -535,11 +567,6 @@ td{
 					 xls.exportToXLS('export.xls')
 				};
 			});
-			
-			
-		
-		
-	
 	
 }
 			
