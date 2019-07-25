@@ -171,7 +171,7 @@ td{
 	Creating map and adding tile layer
 	*/
 	var map = L.map('map', {zoomControl: true}).setView([35, -99], 4);
-	var scaleBar = L.control.scale({imperial: false, position: 'bottomright'}).addTo(map);
+	var scaleBar = L.control.scale({imperial: true, position: 'bottomright'}).addTo(map);
 	map.zoomControl.setPosition('bottomright');
 	var tonerLayer = new L.StamenTileLayer("toner-lite");
 	map.addLayer(tonerLayer);
