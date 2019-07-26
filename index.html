@@ -79,7 +79,7 @@
 	float: left;
     clear: left;
 	
-    width: 160px;
+    width: 170px;
    
     font-weight: normal;
     color: black;
@@ -336,7 +336,7 @@ button{
 					//create and add popup to marker:
 					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$" + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Sales Segment </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
 					{
-					maxWidth: 380,
+					maxWidth: 390,
 					maxHeight: 700
 					
 					}); 
@@ -492,7 +492,7 @@ button{
 				avg2018 = sales2018/(summaryPoints.length);
 				
 				//display dialog box summary
-				dialog = L.control.dialog({size: [380, 595], maxSize: [400, 400], anchor: [0, 250]})
+				dialog = L.control.dialog({size: [410, 595], maxSize: [410, 600], anchor: [0, 250]})
                 .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx clients</dt>"+inpex+"<dt>No. of MAH clients</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+numeral(avg2017.toFixed(2)).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
@@ -606,7 +606,7 @@ button{
 			//
 			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
 				if (dialog != undefined){dialog.destroy();}
-				dialog = L.control.dialog({size: [380, 595], maxSize: [400, 400], anchor: [0, 250]})
+				dialog = L.control.dialog({size: [410, 595], maxSize: [400, 400], anchor: [0, 250]})
                 .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx clients</dt>"+inpex+"<dt>No. of MAH clients</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+numeral(avg2017.toFixed(2)).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
