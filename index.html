@@ -51,6 +51,9 @@
 	
 	
     <link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.css" />
+	
+	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.css">
+	<script src="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.js"></script>
 
 </head>
 <body>
@@ -198,7 +201,11 @@ button{
 	Creating map and adding tile layer
 	*/
 	var map = L.map('map', {zoomControl: true}).setView([35, -99], 4);
-	var scaleBar = L.control.scale({imperial: true, position: 'bottomright'}).addTo(map);
+	var scaleBar = L.control.scale({imperial: true, metric: false, position: 'bottomright'}).addTo(map);
+	var ruler = L.control.ruler({position: 'topright', lengthUnit: {display: 'miles',              // This is the display value will be shown on the screen. Example: 'meters'
+        decimal: 2,                 // Distance result will be fixed to this value. 
+        factor: 0.621373,               // This value will be used to convert from kilometers. Example: 1000 (from kilometers to meters)  
+        label: 'Distance:'}}).addTo(map);
 	map.zoomControl.setPosition('bottomright');
 	var tonerLayer = new L.StamenTileLayer("toner-lite");
 	map.addLayer(tonerLayer);
@@ -334,7 +341,7 @@ button{
 					coordsHeat.push([filtered[row].lat, filtered[row].lon]);
 					var marker = L.marker([filtered[row].lat, filtered[row].lon]).addTo(pointGroupLayer);
 					//create and add popup to marker:
-					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$" + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Sales Segment </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
+					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$" + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') + "</dd><dt>Sales Segment </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend +"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
 					{
 					maxWidth: 390,
 					maxHeight: 700
