@@ -62,17 +62,19 @@
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 260px; /* Set the width of the sidebar */
+  width: 268px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
   background-color: rgba(0,0,0, 0.5);
-  padding-left: 10px;
-  
+  padding-left: 13px;
+  padding-right: 10px;
+
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 3px;
+  padding-top: 2px;
 }
+
 .summary > dt{
 	float: left;
     clear: left;
@@ -113,47 +115,59 @@ dl {
 td{
 	color: white;
 	padding: 0px;
+	font-size: 12px;
+	margin-bottom: 2px;
+	
 }
-
 .filterTitle{
 	color: white;
-	font-size: 18px;
-	margin-bottom: 2px;
+	font-size: 13px;
+	margin-bottom: 3px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+input{
+	margin-bottom: 0px;
+}
+button{
+  padding: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 </style>
 <div class="sidenav">
 	<table><h2 class="filterTitle">INPEx/MAH</h2>	
 			<tr><td><input type="checkbox" name="inpexmah" value="INPEx" checked=checked />INPEx</td></tr>
-			<tr><td><input type="checkbox" name="inpexmah" value="MAH" checked=checked/>MAH</td><td style="font-size: 12px; margin-left: 10px">Pulsation:<input type="checkbox" name="pulsation" value="pulse" style="width: 12px; height: 12px;" checked=checked/></td></tr>
+			<tr><td><input type="checkbox" name="inpexmah" value="MAH" checked=checked/>MAH</td><td style="font-size: 12px; padding-left: 40px">Pulsation:<input type="checkbox" name="pulsation" value="pulse" style="width: 12px; height: 12px; margin-left: 2px;" checked=checked/></td><td><svg viewBox= "0 0 100 100" transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 170 170"><circle cx="60" cy="38" fill="none" r="32" stroke="blue" stroke-width="8"><animate id="animateradius" attributeName="r" from="28" to="32" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate id="animateopacity" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/></svg></td></tr>
 
 	</table><table>
-	<table><h2 class="filterTitle">Tier</h2>	
-			<tr><td><input type="checkbox" name="tier" value="Tier 1" checked=checked />Tier 1</td></tr>
-			<tr><td><input type="checkbox" name="tier" value="Tier 2" checked=checked/>Tier 2</td></tr>
-			<tr><td><input type="checkbox" name="tier" value="Tier 3" checked=checked/>Tier 3</td></tr>		
-			<tr><td><input type="checkbox" name="tier" value="Tier 4" checked=checked/>Tier 4</td></tr>
-			<tr><td><input type="checkbox" name="tier" value="null" checked=checked/>No tier</td></tr>
+	<table><h2 class="filterTitle">Segment by 2018 Total Sales</h2>	
+			<tr><td><input type="checkbox" name="tier" value="Tier 1" checked=checked />Seg 1: over $100K</td></tr>
+			<tr><td><input type="checkbox" name="tier" value="Tier 2" checked=checked/>Seg 2: $50K - $99.9K</td></tr>
+			<tr><td><input type="checkbox" name="tier" value="Tier 3" checked=checked/>Seg 3: $10K - $49.9K</td></tr>		
+			<tr><td><input type="checkbox" name="tier" value="Tier 4" checked=checked/>Seg 4: $1K - $9.9K</td></tr>
+			<tr><td><input type="checkbox" name="tier" value="null" checked=checked/>No Seg: under $1K</td></tr>
 			<tr><td></tr></td>
 			<tr><td><input type="radio" name="radiotier" value="SelectAll"/>Select All</tr></td>
 			<tr><td><input type="radio" name="radiotier" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
 			<h2 class="filterTitle">Growth Potential</h2>	
-			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><polygon fill="MediumOrchid" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><polygon fill="LightSkyBlue" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><polygon fill="PeachPuff" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="null" checked=checked />No value</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><polygon fill="white" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low</td><td style="margin-top: 2px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="MediumOrchid" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="LightSkyBlue" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="PeachPuff" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="null" checked=checked />No value</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="white" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td></tr></td>
 			<tr><td><input type="radio" name="radiopotential" value="SelectAll"/>Select All</tr></td>
 			<tr><td><input type="radio" name="radiopotential" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
-			<h2 class="filterTitle">Sales Trend</h2>	
-			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="orange" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td><td style="margin-top: 2px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</td><td><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="5" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<h2 class="filterTitle">Sales Trend $ : H1’18 vs. H1’19</h2>	
+			<tr><td><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="orange" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</td><td><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="null" checked=checked />No value</td><td></td></tr>
 			<tr><td><input type="checkbox" name="trend" value="No Sales" checked=checked />No Sales</td><td></td></tr>
 			<tr><td></tr></td>
@@ -161,7 +175,7 @@ td{
 			<tr><td><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</tr></td>
 				
 	</table>
-	<div style="padding-top: 10px;"></div>
+	<div style="padding-top: 7px;"></div>
 	
   <div style="text-align: center;"><button type="button" id="clusterButton">Cluster/Uncluster</button>	
 	<button type="button" id="heatButton">Heatmap</button></div> 
@@ -172,7 +186,6 @@ td{
  <script src="https://unpkg.com/leaflet-canvas-marker@0.2.0"></script>
 <script>
 	
-
 	var clusterButton = document.getElementById("clusterButton");                              //Button to enable or disable clusters
 	var heatButton = document.getElementById("heatButton");                                    //Button to enable or disable heatmap
 	var heatActive = false;                                                                    //Boolean to check if heat layer is active
@@ -213,7 +226,6 @@ td{
 	var summaryPoints = new Array();                                                             //array with that are inside of the drawn polygon
 	drawPoints();  //draws client points for the first time
 	var drawnItems = new L.FeatureGroup();                                                       //Layer that stores the drawn polygons
-
 	
 	//variables used in summary----------
 				var totTier1 = 0;
@@ -251,7 +263,6 @@ td{
 		coordsHeat = []; //Empties the array of points(coordinates) used to create heatmap
 	
 			clicks++;
-
 		//filters---------------
 		tierfilter = [];
 		potentialfilter = [];
@@ -323,7 +334,7 @@ td{
 					coordsHeat.push([filtered[row].lat, filtered[row].lon]);
 					var marker = L.marker([filtered[row].lat, filtered[row].lon]).addTo(pointGroupLayer);
 					//create and add popup to marker:
-					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$" + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Tier </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
+					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$" + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') +"</dd><dt>Sales Trend </dt><dd>" + filtered[row].trend + "</dd><dt>Sales Segment </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018 $</dt><dd>"+filtered[row].h1_2018+"</dd><dt>H1 2019 $</dt><dd>"+filtered[row].h1_2019+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
 					{
 					maxWidth: 380,
 					maxHeight: 700
@@ -387,8 +398,8 @@ td{
 					
 					var icon = L.icon({
 					  iconUrl: iconUrl,
-					  iconSize: [36, 36],
-					  iconAnchor: [18, 18]
+					  iconSize: [38, 38],
+					  iconAnchor: [19, 19]
 					});
 	
 					
@@ -470,8 +481,8 @@ td{
 							if (filtered[row].inpex_mah === "MAH"){mah++;}
 							if (filtered[row].inpex_mah === "INPEx"){inpex++;}
 							
-							sales2017 += filtered[row].sales_2017;
-							sales2018 += filtered[row].sales_2018;
+							if(filtered[row].sales_2017 != null){sales2017 += parseFloat((filtered[row].sales_2017).toString().replace(/,/g, ''));}
+							if(filtered[row].sales_2018 != null){sales2018 += parseFloat((filtered[row].sales_2018).toString().replace(/,/g, ''));}
 						}
 						
 					}
@@ -482,7 +493,7 @@ td{
 				
 				//display dialog box summary
 				dialog = L.control.dialog({size: [380, 595], maxSize: [400, 400], anchor: [0, 250]})
-                .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx clients</dt>"+inpex+"<dt>No. of MAH clients</dt><dd>"+mah+"</dd><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
+                .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx clients</dt>"+inpex+"<dt>No. of MAH clients</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+numeral(avg2017.toFixed(2)).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
 				
@@ -532,6 +543,21 @@ td{
 			$('input[name="pulsation"]').click(function(e){
 				pulsating = !pulsating;
 				drawPoints();
+				if(pulsating===false){
+					var circleLegend = document.getElementById("animateradius");
+					circleLegend.setAttribute("from", "30");
+					circleLegend.setAttribute("to", "30");
+					var circleOpacit = document.getElementById("animateopacity");
+					circleOpacit.setAttribute("to", "1");
+				}
+				else{
+					var circleLegend = document.getElementById("animateradius");
+					circleLegend.setAttribute("from", "28");
+					circleLegend.setAttribute("to", "32");
+					var circleOpacit = document.getElementById("animateopacity");
+					circleOpacit.setAttribute("to", "0");
+				}
+				
 				});
 				
 			
@@ -580,8 +606,8 @@ td{
 			//
 			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
 				if (dialog != undefined){dialog.destroy();}
-				dialog = L.control.dialog({size: [380, 550], maxSize: [400, 400], anchor: [0, 250]})
-                .setContent("<dl class='summary'><h2>Tier</h2><dt>No. of Tier 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Tier 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Tier 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Tier 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients without Tier</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+avg2017.toFixed(2)+"</dd><dt>Average sales 2018</dt><dd>$"+avg2018.toFixed(2)+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
+				dialog = L.control.dialog({size: [380, 595], maxSize: [400, 400], anchor: [0, 250]})
+                .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx clients</dt>"+inpex+"<dt>No. of MAH clients</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+numeral(avg2017.toFixed(2)).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
 				//if(document.getElementById("download") == null){document.getElementById("download").id = "old";}
@@ -591,7 +617,6 @@ td{
 					 xls.exportToXLS('export.xls')
 				};
 			});
-
 	
 }
 			
