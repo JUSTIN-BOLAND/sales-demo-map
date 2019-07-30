@@ -347,9 +347,10 @@ button{
 					//create and add popup to marker:
 					var h2018 = 0;
 					var h2019 = 0;
+					var trend=0;
 					if (filtered[row].h1_2018 != null){h2018 = parseFloat((filtered[row].h1_2018).toString().replace(/,/g, ''));}
 					if (filtered[row].h1_2019 != null){h2019 = parseFloat((filtered[row].h1_2019).toString().replace(/,/g, ''));}
-					var trend = (h2019 - h2018)*100/h2018
+					if (h2018 != 0){trend = (h2019 - h2018)*100/h2018;}else if (h2018 == 0 && h2019 != 0){trend = 100;}
 					
 					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$" + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') + "</dd><dt>Sales Segment </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018</dt><dd>$"+numeral(filtered[row].h1_2018).format('0,0')+"</dd><dt>H1 2019</dt><dd>$"+numeral(filtered[row].h1_2019).format('0,0')+"</dd><dt>Sales Trend </dt><dd>" + trend.toFixed(2) +"%</dd><dt>Trend Category</dt><dd>" + filtered[row].trend+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
 					{
@@ -469,6 +470,7 @@ button{
 				inpex = 0;
 				toth12019 = 0;
 				toth12018 = 0;
+				h1trend=0;
 				
 				
 				if (dialog != undefined){dialog.destroy();}                 //removes previous dialog box when a new one is created
@@ -514,7 +516,7 @@ button{
 				avg2018 = sales2018/(summaryPoints.length);
 				
 				
-				h1trend = (toth12019 - toth12018)*100/toth12018;
+				if(toth12018 != 0){h1trend = (toth12019 - toth12018)*100/toth12018;} else if (toth12018 == 0 && toth12019 != 0){h1trend = 100;}
 				
 				//display dialog box summary
 				dialog = L.control.dialog({size: [410, 645], maxSize: [410, 600], anchor: [0, 250]})
