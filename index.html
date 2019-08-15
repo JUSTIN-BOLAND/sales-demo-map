@@ -132,15 +132,51 @@ td{
 input{
 	margin-bottom: 0px;
 }
+
 button{
   padding: 2px;
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
+ul, #inpexlist {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+.nested {
+  display: block;
+}
+.unactive {
+  display: none;
+}
+
+.inpexClients{
+	margin-left: 20px;
+	width: 500px;
+}
+
 </style>
 <div class="sidenav">
 	<table><h2 class="filterTitle">INPEx/MAH</h2>	
-			<tr><td><input type="checkbox" name="inpexmah" value="INPEx" checked=checked />INPEx</td></tr>
+			<tr><td><ul ID	="inpexlist">
+				<li><input type="checkbox" name="inpexmah" value="INPEx" checked=checked/>INPEx</li>
+					<ul id ="inpexNest" class="nested">
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Annmarie DeSilva" checked=checked/>Annmarie DeSilva</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Dawn Hickman" checked=checked/>Dawn Hickman</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Doreen Gonzalez" checked=checked/>Doreen Gonzalez</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Gerri Wunder" checked=checked/>Gerri Wunder</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Jessica Merritt" checked=checked/>Jessica Merritt</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Karen McBeth" checked=checked/>Karen McBeth</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Kelli Manderscheid" checked=checked/>Kelli Manderscheid</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Michelle Vibonese" checked=checked/>Michelle Vibonese</li>
+						<li class="inpexClients"><input type="checkbox" name="clients" value="Tabitha Fallin" checked=checked/>Tabitha Fallin</li>
+						
+						<li class="inpexClients"><input type="radio" name="radioclients" value="SelectAll"/>Select All</li>
+						<li class="inpexClients"><input type="radio" name="radioclients" value="UnselectAll"/>Unselect All</li>
+						
+					</ul>
+				</ul></td></tr>
 			<tr><td><input type="checkbox" name="inpexmah" value="MAH" checked=checked/>MAH</td><td style="font-size: 12px; padding-left: 40px">Pulsation:<input type="checkbox" name="pulsation" value="pulse" style="width: 12px; height: 12px; margin-left: 2px;" checked=checked/></td><td><svg viewBox= "0 0 100 100" transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 170 170"><circle cx="60" cy="38" fill="none" r="32" stroke="blue" stroke-width="8"><animate id="animateradius" attributeName="r" from="28" to="32" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate id="animateopacity" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/></svg></td></tr>
 
 	</table><table>
@@ -279,22 +315,36 @@ button{
 		potentialfilter = [];
 		trendfilter = [];
 		inpexfilter = [];
+		ownerfilter = [];
 		
 		
 		//---------INPEx/MAH filter---------------
-		$("input:checkbox[name='inpexmah']:checked").each(function(){
-				
+		$("input:checkbox[name='inpexmah']:checked").each(function(){	
 			if($(this).val() === "null"){inpexfilter.push(null);}
 			else{
 			inpexfilter.push($(this).val());}});
+			
 			
 		function inpexFilter(element) {
 			var valid = inpexfilter;
 			return (valid.includes(element.inpex_mah));
 		}
+		//---------INPEx owner name filter-------
+		$("input:checkbox[name='clients']:checked").each(function(){	
+			if($(this).val() === "null"){ownerfilter.push(null);}
+			else{
+			ownerfilter.push($(this).val());}});
+			
+			
+		function ownerFilter(element) {
+			var valid = ownerfilter;
+			return (valid.includes(element.inpex_ao));
+		}
+		
 		 //--------tier filter-----
 		$("input:checkbox[name='tier']:checked").each(function(){
 				//tierfilter=[];
+			
 			if($(this).val() === "null"){tierfilter.push(null);}
 			else{
 			tierfilter.push($(this).val());}});
@@ -329,6 +379,7 @@ button{
 		filtered = filtered.filter(potentialFilter);
 		filtered = filtered.filter(trendFilter);
 		filtered = filtered.filter(inpexFilter);
+		filtered = filtered.filter(ownerFilter);
 		
 		
 		
@@ -565,7 +616,14 @@ button{
 			
 			$('input[name="inpexmah"]').click(function(e){
 				drawPoints();
+				if(this.attributes["value"].value === "INPEx"){ document.getElementById("inpexNest").classList.toggle("unactive");}
 				if (drawnAmount>0){ getWithin(e);}});
+			
+			$('input[name="clients"]').click(function(e){
+				drawPoints();
+				$('input[name="radioclients"]').prop('checked', false);
+				if (drawnAmount>0){ getWithin(e);}});
+						
 			
 			$('input[name="pulsation"]').click(function(e){
 				pulsating = !pulsating;
@@ -591,28 +649,37 @@ button{
 			
 			
 			$('input[value="UnselectAll"]').click(function(e){
+				switch(this.attributes["name"].value){
+					case "radiotier":
+						$('input[name="tier"]').prop('checked', false);
+						break;
+					case "radiotrend":
+						$('input[name="trend"]').prop('checked', false);
+						break;
+					case "radioclients":
+						$('input[name="clients"]').prop('checked', false);
+						break;
+					default:
+						$('input[name="potential"]').prop('checked', false);
+				}
 				
-				if(this.attributes["name"].value === "radiotier"){
-					$('input[name="tier"]').prop('checked', false);
-				}
-				else if(this.attributes["name"].value === "radiotrend"){
-					$('input[name="trend"]').prop('checked', false);
-				}
-				else{
-					$('input[name="potential"]').prop('checked', false);
-				}
+				
 				drawPoints();
 			});
 			
 			$('input[value="SelectAll"]').click(function(e){
-				if(this.attributes["name"].value === "radiotier"){
-					$('input[name="tier"]').prop('checked', true);
-				}
-				else if(this.attributes["name"].value === "radiotrend"){
-					$('input[name="trend"]').prop('checked', true);
-				}
-				else{
-					$('input[name="potential"]').prop('checked', true);
+				switch(this.attributes["name"].value){
+					case "radiotier":
+						$('input[name="tier"]').prop('checked', true);
+						break;
+					case "radiotrend":
+						$('input[name="trend"]').prop('checked', true);
+						break;
+					case "radioclients":
+						$('input[name="clients"]').prop('checked', true);
+						break;
+					default:
+						$('input[name="potential"]').prop('checked', true);
 				}
 				drawPoints();
 			});
