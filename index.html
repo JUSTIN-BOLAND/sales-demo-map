@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-    <title>Clients</title>
+    <title>Account Map</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +50,7 @@
 	<script src="script/xls-export.js"></script>
 	
 	
-    <link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-icon-pulse/master/src/L.Icon.Pulse.css" />
+  
 	
 	<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.css">
 	<script src="https://cdn.rawgit.com/gokertanrisever/leaflet-ruler/master/src/leaflet-ruler.js"></script>
@@ -82,7 +82,7 @@
 	float: left;
     clear: left;
 	
-    width: 170px;
+    width: 190px;
    
     font-weight: normal;
     color: black;
@@ -154,10 +154,10 @@ button{
 			<tr><td><input type="radio" name="radiotier" value="SelectAll"/>Select All</tr></td>
 			<tr><td><input type="radio" name="radiotier" value="UnselectAll"/>Unselect All</tr></td>
 	</table><table>
-			<h2 class="filterTitle">Growth Potential</h2>	
-			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low</td><td style="margin-top: 2px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="MediumOrchid" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="LightSkyBlue" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="PeachPuff" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<h2 class="filterTitle">Growth Potential: $/Intake</h2>	
+			<tr><td><input type="checkbox" name="potential" value="Low" checked=checked />Low - $10 and over</td><td style="margin-top: 2px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="MediumOrchid" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate - $2-$9.99</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="LightSkyBlue" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
+			<tr><td><input type="checkbox" name="potential" value="High" checked=checked />High - under $2</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="PeachPuff" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td><input type="checkbox" name="potential" value="null" checked=checked />No value</td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="white" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
 			<tr><td></tr></td>
 			<tr><td><input type="radio" name="radiopotential" value="SelectAll"/>Select All</tr></td>
@@ -186,7 +186,7 @@ button{
 </div>
 
 <div id="map" style="width: 100vw; height: 100vh; z-index: 0;"></div>
- <script src="https://unpkg.com/leaflet-canvas-marker@0.2.0"></script>
+
 <script>
 	
 	var clusterButton = document.getElementById("clusterButton");                              //Button to enable or disable clusters
@@ -352,7 +352,7 @@ button{
 					if (filtered[row].h1_2019 != null){h2019 = parseFloat((filtered[row].h1_2019).toString().replace(/,/g, ''));}
 					if (h2018 != 0){trend = (h2019 - h2018)*100/h2018;}else if (h2018 == 0 && h2019 != 0){trend = 100;}
 					
-					marker.bindPopup("<dl>" + "<h2>Client Information	</h2><dt>Client Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2017 Sales </dt><dd>$" + numeral(filtered[row].sales_2017).format('0,0') + "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') + "</dd><dt>Sales Segment </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018</dt><dd>$"+numeral(filtered[row].h1_2018).format('0,0')+"</dd><dt>H1 2019</dt><dd>$"+numeral(filtered[row].h1_2019).format('0,0')+"</dd><dt>Sales Trend </dt><dd>" + trend.toFixed(2) +"%</dd><dt>Trend Category</dt><dd>" + filtered[row].trend+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd></dl>", 
+					marker.bindPopup("<dl>" + "<h2>Account Information</h2><dt>Account Name </dt><dd>" + filtered[row].client + "</dd><dt>Address </dt><dd>"+ filtered[row].address+  "</dd><dt>2018 Sales </dt><dd>$" + numeral(filtered[row].sales_2018).format('0,0') + "</dd><dt>Sales Segment </dt><dd>" +tier_no+ "</dd><dt>Growth Potential </dt><dd>" +  filtered[row].sales_potential +"</dd><dt>H1 2018</dt><dd>$"+numeral(filtered[row].h1_2018).format('0,0')+"</dd><dt>H1 2019</dt><dd>$"+numeral(filtered[row].h1_2019).format('0,0')+"</dd><dt>Sales Trend </dt><dd>" + trend.toFixed(2) +"%</dd><dt>Trend Category</dt><dd>" + filtered[row].trend+"</dd><dt>Account Owner</dt><dd>"+filtered[row].account_owner+ "</dd><dt>INPEx AO</dt><dd>"+filtered[row].inpex_ao+ "</dd></dl>", 
 					{
 					maxWidth: 390,
 					maxHeight: 700
@@ -520,7 +520,7 @@ button{
 				
 				//display dialog box summary
 				dialog = L.control.dialog({size: [410, 645], maxSize: [410, 600], anchor: [0, 250]})
-                 .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx clients</dt>"+inpex+"<dt>No. of MAH clients</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+numeral(avg2017.toFixed(2)).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd><dt>H1'2018</dt><dd>$"+numeral(toth12018).format('0,0')+"</dd><dt>H1'2019</dt><dd>$"+numeral(toth12019).format('0,0')+"</dd><dt>H1 Trend</dt><dd>"+h1trend.toFixed(2)+"%"+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
+                 .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx accounts</dt>"+inpex+"<dt>No. of MAH accounts</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 accounts</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 accounts</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 accounts</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 accounts</dt><dd>"+totTier4+"</dd><dt>No. of accounts with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd><dt>H1'2018</dt><dd>$"+numeral(toth12018).format('0,0')+"</dd><dt>H1'2019</dt><dd>$"+numeral(toth12019).format('0,0')+"</dd><dt>H1 Trend</dt><dd>"+h1trend.toFixed(2)+"%"+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
 				
@@ -634,7 +634,7 @@ button{
 			drawnItems.on('click', function(e) { //show dialog box when polygon is clicked
 				if (dialog != undefined){dialog.destroy();}
 				dialog = L.control.dialog({size: [410, 645], maxSize: [400, 400], anchor: [0, 250]})
-                .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx clients</dt>"+inpex+"<dt>No. of MAH clients</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 clients</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 clients</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 clients</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 clients</dt><dd>"+totTier4+"</dd><dt>No. of clients with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+numeral(avg2017.toFixed(2)).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd><dt>H1'2018</dt><dd>$"+numeral(toth12018).format('0,0')+"</dd><dt>H1'2019</dt><dd>$"+numeral(toth12019).format('0,0')+"</dd><dt>H1 Trend</dt><dd>"+h1trend.toFixed(2)+"%"+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
+                .setContent("<dl class='summary'><h2>INPEx/MAH</h2><dt>No. of INPEx accounts</dt>"+inpex+"<dt>No. of MAH accounts</dt><dd>"+mah+"</dd><h2>Sales Segment</h2><dt>No. of Segment 1 accounts</dt><dd>"+totTier1+"</dd><dt>No. of Segment 2 accounts</dt><dd>"+totTier2+"</dd><dt>No. of Segment 3 accounts</dt><dd>"+totTier3+"</dd><dt>No. of Segment 4 accounts</dt><dd>"+totTier4+"</dd><dt>No. of accounts with no segment</dt><dd>"+noTier+"</dd><h2>Growth Potential</h2><dt>Low</dt><dd>"+totLow+"</dd><dt>Moderate</dt><dd>"+totMod+"</dd><dt>High</dt><dd>"+totHigh+"</dd><dt>Without growth info</dt><dd>"+noPotential+"</dd><h2>Sales</h2><dt>Total sales 2017</dt><dd>$"+numeral(sales2017).format('0,0')+"</dd><dt>Total sales 2018</dt><dd>$"+numeral(sales2018).format('0,0')+"</dd><dt>Average sales 2017</dt><dd>$"+numeral(avg2017.toFixed(2)).format('0,0')+"</dd><dt>Average sales 2018</dt><dd>$"+numeral(avg2018.toFixed(2)).format('0,0')+"</dd><dt>H1'2018</dt><dd>$"+numeral(toth12018).format('0,0')+"</dd><dt>H1'2019</dt><dd>$"+numeral(toth12019).format('0,0')+"</dd><dt>H1 Trend</dt><dd>"+h1trend.toFixed(2)+"%"+"</dd></dl><div style='text-align: center;'><button id='download'>Download selected</button></div>")
 			    .addTo(map);
 			    dialog.hideResize();
 				
