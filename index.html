@@ -167,168 +167,299 @@ td li{
 </style>
 <div class="sidenav">
 	<form>
-	<table><h2 class="filterTitle">INPEx/MAH</h2>	
-			<tr><!-- filas-->
-				<td colspan="3"> <!-- columna -->
-					<label><input type="checkbox" name="inpexmah" value="INPEx" id="inpexbox" checked=checked/>INPEx</label>
-					<table id ="inpexNest" class="nested">
-						
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Annmarie DeSilva" checked=checked/>Annmarie DeSilva</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#6BCEAB" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Dawn Hickman" checked=checked/>Dawn Hickman</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#C4C14E" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Doreen Gonzalez" checked=checked/>Doreen Gonzalez</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#8B7FD4" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Gerri Wunder" checked=checked/>Gerri Wunder</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#C75874" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Jessica Merritt" checked=checked/>Jessica Merritt</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#BF6240" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Karen McBeth" checked=checked/>Karen McBeth</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#D09E71" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Kelli Manderscheid" checked=checked/>Kelli Manderscheid</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#1C3C54" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Michelle Vibonese" checked=checked/>Michelle Vibonese</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#53C679" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="checkbox" name="clients" value="Tabitha Fallin" checked=checked/>Tabitha Fallin</label>
-							</td>
-							<td>
-								<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
-									<circle cx="35" cy="38" r="33" stroke="#8D2F32" stroke-width="7" fill="transparent" />
-								</svg>
-							</td>
-						</tr>
-				
-						<tr class="inpexClients">
-							<td>
-								<label><input type="radio" name="radioclients" value="SelectAll"/>Select All</label>
-							</td>
-						</tr>
-						<tr class="inpexClients">
-							<td>
-								<label><input type="radio" name="radioclients" value="UnselectAll"/>Unselect All</label>
-							</td>
-						</tr>
+	<table>
+		<h2 class="filterTitle">INPEx/MAH</h2>	
+		<tr>
+			<td colspan="3"> 
+				<label><input type="checkbox" name="inpexmah" value="INPEx" id="inpexbox" checked=checked/>INPEx</label>
+				<table id ="inpexNest" class="nested">
 					
-					</table>	
-				</td>
-			</tr> <!-- cerrar fila -->
-			<tr>
-				<td>
-					<label>
-						<input type="checkbox" name="inpexmah" value="MAH" checked=checked/>
-						MAH
-					</label>
-					<label id="pulsation">
-						<input type="checkbox" name="pulsation" value="pulse" style="width: 12px; height: 12px; margin-left: 2px;" checked=checked/>
-						Pulsation:
-					</label>
-					<svg viewBox= "0 0 100 100" transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 170 170">
-						<circle cx="60" cy="38" fill="none" r="32" stroke="blue" stroke-width="8"><animate id="animateradius" attributeName="r" from="28" to="32" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate id="animateopacity" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
-					</svg>
-				</td>
-			</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Annmarie DeSilva" checked=checked/>Annmarie DeSilva</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#6BCEAB" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Dawn Hickman" checked=checked/>Dawn Hickman</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#C4C14E" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
 
-	</table><table>	
-	<table><h2 class="filterTitle">Segment by 2018 Total Sales</h2>	
-			<tr><td><label><input type="checkbox" name="tier" value="Tier 1" checked=checked />Seg 1: over $100K</label></td></tr>
-			<tr><td><label><input type="checkbox" name="tier" value="Tier 2" checked=checked/>Seg 2: $50K - $99.9K</label></td></tr>
-			<tr><td><label><input type="checkbox" name="tier" value="Tier 3" checked=checked/>Seg 3: $10K - $49.9K</label></td></tr>		
-			<tr><td><label><input type="checkbox" name="tier" value="Tier 4" checked=checked/>Seg 4: $1K - $9.9K</label></td></tr>
-			<tr><td><label><input type="checkbox" name="tier" value="null" checked=checked/>No Seg: under $1K</label></td></tr>
-			<tr><td><label></tr></td>
-			<tr><td><label><input type="radio" name="radiotier" value="SelectAll"/>Select All</tr></td>
-			<tr><td><label><input type="radio" name="radiotier" value="UnselectAll"/>Unselect All</tr></td>
-	</table><table>
-			<h2 class="filterTitle">Growth Potential: $/Intake</h2>	
-			<tr><td><label><input type="checkbox" name="potential" value="Low" checked=checked />Low - $10 and over</label></td><td style="margin-top: 2px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="MediumOrchid" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate - $2-$9.99</label></td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="LightSkyBlue" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="potential" value="High" checked=checked />High - under $2</label></td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="PeachPuff" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="potential" value="null" checked=checked />No value</label></td><td style="margin-top: 0px"><svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><polygon fill="white" stroke="black" stroke-width="5" points="30,4,4,60,60,60" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label></tr></td>
-			<tr><td><label><input type="radio" name="radiopotential" value="SelectAll"/>Select All</label></tr></td>
-			<tr><td><label><input type="radio" name="radiopotential" value="UnselectAll"/>Unselect All</label>/tr></td>
-	</table><table>
-			<h2 class="filterTitle">Sales Trend $ : H1’18 vs. H1’19</h2>	
-			<tr><td><label><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</label></td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</label></td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</label></td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</label></td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="orange" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</label></td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</label></td><td style="margin-top: 0px"><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</label></td><td><svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104"><circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" /><text x="32" y="50" text-anchor="middle" fill="black" font-weight="normal" font-size="38"></text></svg></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="null" checked=checked />No value</td><td></td></tr>
-			<tr><td><label><input type="checkbox" name="trend" value="No Sales" checked=checked />No Sales</td><td></td></tr>
-			<tr><td><label></tr></td>
-			<tr><td><label><input type="radio" name="radiotrend" value="SelectAll"/>Select All</label></tr></td>
-			<tr><td><label><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</label></tr></td>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Doreen Gonzalez" checked=checked/>Doreen Gonzalez</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#8B7FD4" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Gerri Wunder" checked=checked/>Gerri Wunder</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#C75874" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Jessica Merritt" checked=checked/>Jessica Merritt</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#BF6240" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Karen McBeth" checked=checked/>Karen McBeth</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#D09E71" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Kelli Manderscheid" checked=checked/>Kelli Manderscheid</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#1C3C54" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Michelle Vibonese" checked=checked/>Michelle Vibonese</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#53C679" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="checkbox" name="clients" value="Tabitha Fallin" checked=checked/>Tabitha Fallin</label>
+						</td>
+						<td>
+							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<circle cx="35" cy="38" r="33" stroke="#8D2F32" stroke-width="7" fill="transparent" />
+							</svg>
+						</td>
+					</tr>
+			
+					<tr class="inpexClients">
+						<td style="padding-top: 6px">
+							<label><input type="radio" name="radioclients" value="SelectAll"/>Select All</label>
+						</td>
+					</tr>
+					<tr class="inpexClients">
+						<td>
+							<label><input type="radio" name="radioclients" value="UnselectAll"/>Unselect All</label>
+						</td>
+					</tr>
 				
+				</table>	
+			</td>
+		</tr> 
+		<tr>
+			<td>
+				<label>
+					<input type="checkbox" name="inpexmah" value="MAH" checked=checked/>
+					MAH
+				</label>
+				<label id="pulsation">
+					<input type="checkbox" name="pulsation" value="pulse" style="width: 12px; height: 12px; margin-left: 2px;" checked=checked/>
+					Pulsation:
+				</label>
+				<svg viewBox= "0 0 100 100" transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 170 170">
+					<circle cx="60" cy="38" fill="none" r="32" stroke="blue" stroke-width="8"><animate id="animateradius" attributeName="r" from="28" to="32" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate id="animateopacity" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
+				</svg>
+			</td>
+		</tr>
+
+	</table>
+	<table>
+		<h2 class="filterTitle">Segment by 2018 Total Sales</h2>	
+		<tr>
+			<td><label><input type="checkbox" name="tier" value="Tier 1" checked=checked />Seg 1: over $100K</label></td>
+		</tr>
+		<tr>
+			<td><label><input type="checkbox" name="tier" value="Tier 2" checked=checked/>Seg 2: $50K - $99.9K</label></td>
+		</tr>
+		<tr>
+			<td><label><input type="checkbox" name="tier" value="Tier 3" checked=checked/>Seg 3: $10K - $49.9K</label></td>
+		</tr>		
+		<tr>
+			<td><label><input type="checkbox" name="tier" value="Tier 4" checked=checked/>Seg 4: $1K - $9.9K</label></td>
+		</tr>
+		<tr>
+			<td><label><input type="checkbox" name="tier" value="null" checked=checked/>No Seg: under $1K</label></td>
+		</tr>
+		<tr>
+			<td style="padding-top: 6px"><label><input type="radio" name="radiotier" value="SelectAll"/>Select All</td>
+		</tr>
+		<tr>
+			<td><label><input type="radio" name="radiotier" value="UnselectAll"/>Unselect All</td>
+		</tr>
+	</table>
+	<table>
+		<h2 class="filterTitle">Growth Potential: $/Intake</h2>	
+		<tr>
+			<td><label><input type="checkbox" name="potential" value="Low" checked=checked />Low - $10 and over</label>
+			</td>
+			<td style="margin-top: 2px">
+				<svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<polygon fill="MediumOrchid" stroke="black" stroke-width="5" points="30,4,4,60,60,60" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="potential" value="Moderate" checked=checked />Moderate - $2-$9.99</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<polygon fill="LightSkyBlue" stroke="black" stroke-width="5" points="30,4,4,60,60,60" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="potential" value="High" checked=checked />High - under $2</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<polygon fill="PeachPuff" stroke="black" stroke-width="5" points="30,4,4,60,60,60" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="potential" value="null" checked=checked />No value</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,10)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<polygon fill="white" stroke="black" stroke-width="5" points="30,4,4,60,60,60" />
+				</svg>
+			</td>
+		</tr>
+
+		<tr>
+			<td style="padding-top: 6px">
+				<label><input type="radio" name="radiopotential" value="SelectAll"/>Select All</label>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="radio" name="radiopotential" value="UnselectAll"/>Unselect All</label>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<h2 class="filterTitle">Sales Trend $ : H1’18 vs. H1’19</h2>	
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="Extreme Growth (50+)" checked=checked />Extreme Growth (50+)</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="Major Growth (20 to 49)" checked=checked />Major Growth (20 to 49)</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="Moderate Growth (5 to 19)" checked=checked />Moderate Growth (5 to 19)</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<circle cx="35" cy="38" r="33" stroke="limegreen" stroke-width="7" fill="transparent" />
+					</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="No Growth (-4 to 4)" checked=checked />No Growth (-4 to 4)</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<circle cx="35" cy="38" r="33" stroke="orange" stroke-width="7" fill="transparent" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="Moderate Loss (-19 to -5)" checked=checked />Moderate Loss (-19 to -5)</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="Major Loss (-49 to -20)" checked=checked />Major Loss (-49 to -20)</label>
+			</td>
+			<td style="margin-top: 0px">
+				<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="Extreme Loss (-50+)" checked=checked />Extreme Loss (-50+)</label>
+			</td>
+			<td>
+				<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+					<circle cx="35" cy="38" r="33" stroke="red" stroke-width="7" fill="transparent" />
+				</svg>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="null" checked=checked />No value</label>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label><input type="checkbox" name="trend" value="No Sales" checked=checked />No Sales</label>
+			</td>
+		</tr>
+		
+		<tr><td style="padding-top: 6px;"><label><input type="radio" name="radiotrend" value="SelectAll"/>Select All</label></tr></td>
+		<tr><td><label><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</label></tr></td>
+			
 	</table></form>
 	<div style="padding-top: 7px;"></div>
 	
