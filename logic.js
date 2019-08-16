@@ -123,6 +123,9 @@ function addPoints(data) {
 					if (element.inpex_ao == name) {
 						filtered = true;
 					}
+					else if(element.inpex_ao == null && name == "null"){
+						filtered = true;
+					}
 				});
 			}
 			return filtered;
