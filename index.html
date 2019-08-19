@@ -172,6 +172,10 @@ td li{
 		<tr>
 			<td colspan="3"> 
 				<label><input type="checkbox" name="inpexmah" value="INPEx" id="inpexbox" checked=checked/>INPEx</label>
+				<label id="pulsation">
+					<input type="checkbox" name="pulsationINPEX" value="pulse" style="width: 12px; height: 12px; margin-left: 2px;" checked=checked/>
+					Pulsation
+				</label>
 				<table id ="inpexNest" class="nested">
 					
 					<tr class="inpexClients">
@@ -181,6 +185,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#6BCEAB" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -190,6 +195,7 @@ td li{
 						</td>
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 								<circle cx="35" cy="38" r="33" stroke="#C4C14E" stroke-width="7" fill="transparent" />
 							</svg>
 						</td>
@@ -202,6 +208,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#8B7FD4" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -212,6 +219,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#C75874" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -222,6 +230,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#BF6240" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -232,6 +241,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#D09E71" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -242,6 +252,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#1C3C54" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -252,6 +263,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#53C679" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -262,6 +274,7 @@ td li{
 						<td>
 							<svg transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 104 104">
 								<circle cx="35" cy="38" r="33" stroke="#8D2F32" stroke-width="7" fill="transparent" />
+								<animate name="animateopacityINPEX" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 							</svg>
 						</td>
 					</tr>
@@ -292,13 +305,14 @@ td li{
 					<input type="checkbox" name="inpexmah" value="MAH" checked=checked/>
 					MAH
 				</label>
-				<label id="pulsation">
-					<input type="checkbox" name="pulsation" value="pulse" style="width: 12px; height: 12px; margin-left: 2px;" checked=checked/>
-					Pulsation:
-				</label>
 				<svg viewBox= "0 0 100 100" transform="translate(5,6)" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 170 170">
-					<circle cx="60" cy="38" fill="none" r="32" stroke="blue" stroke-width="8"><animate id="animateradius" attributeName="r" from="28" to="32" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate id="animateopacity" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
+					<circle cx="60" cy="55" fill="none" r="32" stroke="blue" stroke-width="8"><animate id="animateradiusMAH" attributeName="r" from="28" to="32" dur="1.8s" begin="0s" repeatCount="indefinite"/><animate id="animateopacityMAH" attributeName="opacity" from="1" to="0" dur="1.8s" begin="0s" repeatCount="indefinite"/>
 				</svg>
+				<label id="pulsation">
+					<input type="checkbox" name="pulsationMAH" value="pulse" style="width: 12px; height: 12px; margin-left: 2px;" checked=checked/>
+					Pulsation
+				</label>
+				
 			</td>
 		</tr>
 
@@ -463,8 +477,16 @@ td li{
 			</td>
 		</tr>
 		
-		<tr><td style="padding-top: 6px;"><label><input type="radio" name="radiotrend" value="SelectAll"/>Select All</label></tr></td>
-		<tr><td><label><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</label></tr></td>
+		<tr>
+			<td style="padding-top: 6px;">
+				<label><input type="radio" name="radiotrend" value="SelectAll"/>Select All</label>
+			</tr>
+		</td>
+		<tr>
+			<td>
+				<label><input type="radio" name="radiotrend" value="UnselectAll"/>Unselect All</label>
+			</tr>
+		</td>
 			
 	</table></form>
 	<div style="padding-top: 7px;"></div>
